@@ -1,0 +1,11 @@
+{
+  "vacuum": {
+    "subtitle": "subtitle.bellybutton.vacuum",
+    "sounds": [
+      {
+        "name": "bellybutton:vacuum",
+        "streaming": true
+      }
+    ]
+  }
+}

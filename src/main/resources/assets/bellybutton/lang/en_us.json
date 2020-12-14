@@ -1,0 +1,18 @@
+{
+  "itemGroup.bellybutton": "Belly Button",
+
+  "item.bellybutton.lint": "Lint",
+  "item.bellybutton.dust_bunny_spawn_egg": "Dust Bunny Spawn Egg",
+  "item.bellybutton.vacuum": "Vacuum Cleaner",
+  "item.bellybutton.dust_bunny": "Dust Bunny",
+
+  "entity.bellybutton.dust_bunny": "Dust Bunny",
+
+  "block.bellybutton.belly_button": "Belly Button",
+  "block.bellybutton.lint_block": "Block of Lint",
+  "block.bellybutton.lint_carpet": "Lint Carpet",
+
+  "enchantment.bellybutton.lint_roller": "Lint Roller",
+
+  "subtitle.bellybutton.vacuum": "Vacuum sucks"
+}

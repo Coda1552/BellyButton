@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "bellybutton:block/lint_block"
+    }
+  }
+}
