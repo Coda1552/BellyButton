@@ -65,7 +65,7 @@ public class CommonEventHandler {
     public static void addWandererTrades(WandererTradesEvent event) {
         List<VillagerTrades.ITrade> list = event.getGenericTrades();
 
-        list.add(new ItemsForItemsTrade(new ItemStack(Items.EMERALD, 6), new ItemStack(BellyButtonItems.VACUUM.get(), 1), 3, 5, 1.5f));
+        list.add(new ItemsForItemsTrade(new ItemStack(Items.EMERALD, 3), new ItemStack(BellyButtonItems.VACUUM.get(), 1), 3, 5, 1.5f));
     }
 
     private static VillagerTrades.ITrade cdForItems(ItemStack selling, int maxUses, int xp) {

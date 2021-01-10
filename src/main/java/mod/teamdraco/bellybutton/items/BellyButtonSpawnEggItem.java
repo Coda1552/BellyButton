@@ -21,7 +21,7 @@ import java.util.Map;
 
 public class BellyButtonSpawnEggItem extends SpawnEggItem {
 
-    protected static final List<BellyButtonSpawnEggItem> UNADDED_EGGS = new ArrayList<BellyButtonSpawnEggItem>();
+    public static final List<BellyButtonSpawnEggItem> UNADDED_EGGS = new ArrayList<BellyButtonSpawnEggItem>();
     private final Lazy<? extends EntityType<?>> entityTypeSupplier;
 
     public BellyButtonSpawnEggItem(final NonNullSupplier<? extends EntityType<?>> entityTypeSupplier, final int primaryColour, final int secondaryColour, final Item.Properties properties) {

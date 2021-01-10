@@ -26,7 +26,6 @@ public class BellyButtonBlock extends AbstractButtonBlock {
         ItemStack heldItem = player.getHeldItem(handIn);
         if(!worldIn.isRemote) {
             player.playSound(SoundEvents.BLOCK_WOOL_BREAK, SoundCategory.BLOCKS, 0.8f, 1.0f);
-            if(!player.isCreative()) heldItem.shrink(1);
             player.swing(handIn, true);
             if(this.RANDOM.nextInt(50) == 0) {
                 ItemEntity itemEntity = new ItemEntity(player.getEntityWorld(), (double) pos.getX() + 0.5D, (double) (pos.getY() + 0.5D), (double) pos.getZ() + 0.5D, new ItemStack(BellyButtonItems.LINT.get(), 1));
