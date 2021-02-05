@@ -1,7 +1,7 @@
 {
   "type": "minecraft:entity",
   "pools": [
-    {
+     {
       "rolls": 1,
       "entries": [
         {
@@ -11,8 +11,9 @@
       ],
       "conditions": [
         {
-          "condition": "minecraft:random_chance",
-          "chance": 0.05
+          "condition": "minecraft:random_chance_with_looting",
+          "chance": 0.05,
+          "looting_multiplier": 0.015
         }
       ]
     }

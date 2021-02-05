@@ -1,6 +1,5 @@
 package mod.teamdraco.bellybutton.entity;
 
-import mod.teamdraco.bellybutton.init.BellyButtonEntities;
 import mod.teamdraco.bellybutton.init.BellyButtonItems;
 import mod.teamdraco.bellybutton.init.BellyButtonSounds;
 import net.minecraft.block.Blocks;
@@ -10,8 +9,6 @@ import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.ai.controller.JumpController;
 import net.minecraft.entity.ai.controller.MovementController;
 import net.minecraft.entity.ai.goal.*;
-import net.minecraft.entity.monster.SlimeEntity;
-import net.minecraft.entity.passive.IronGolemEntity;
 import net.minecraft.entity.passive.OcelotEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -23,18 +20,19 @@ import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.pathfinding.Path;
 import net.minecraft.util.*;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.IServerWorld;
+import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
-import net.minecraft.world.gen.feature.structure.Structure;
-import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 import javax.annotation.Nullable;
+import java.util.Random;
 
 public class DustBunnyEntity extends CreatureEntity {
     private static final DataParameter<Integer> SIZE = EntityDataManager.createKey(DustBunnyEntity.class, DataSerializers.VARINT);
@@ -78,6 +76,10 @@ public class DustBunnyEntity extends CreatureEntity {
         }
 
         this.experienceValue = size;
+    }
+
+    public static boolean canBunnySpawn(EntityType<? extends DustBunnyEntity> animal, IWorld worldIn, SpawnReason reason, BlockPos pos, Random random) {
+        return worldIn.getBlockState(pos.down()).isIn(Blocks.SAND) && worldIn.getLightSubtracted(pos, 0) > 8;
     }
 
     public int getSize() {
