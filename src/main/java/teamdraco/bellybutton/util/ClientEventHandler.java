@@ -2,6 +2,7 @@ package teamdraco.bellybutton.util;
 
 import teamdraco.bellybutton.BellyButton;
 import teamdraco.bellybutton.client.render.DustBunnyRenderer;
+import teamdraco.bellybutton.client.render.EvilDustBunnyProjectileRenderer;
 import teamdraco.bellybutton.client.render.EvilDustBunnyRenderer;
 import teamdraco.bellybutton.client.render.MaidRenderer;
 import teamdraco.bellybutton.entity.EvilDustBunnyEntity;
@@ -28,6 +29,8 @@ public class ClientEventHandler {
         RenderingRegistry.registerEntityRenderingHandler(BellyButtonEntities.DUST_BUNNY.get(), DustBunnyRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(BellyButtonEntities.MAID.get(), MaidRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(BellyButtonEntities.EVIL_DUST_BUNNY.get(), EvilDustBunnyRenderer::new);
+        RenderingRegistry.registerEntityRenderingHandler(BellyButtonEntities.EVIL_DUST_BUNNY_PROJECTILE.get(), EvilDustBunnyProjectileRenderer::new);
+
         RenderTypeLookup.setRenderLayer(BellyButtonBlocks.LINT_CARPET.get(), RenderType.getCutout());
     }
 

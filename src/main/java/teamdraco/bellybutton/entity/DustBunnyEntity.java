@@ -32,6 +32,7 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 import javax.annotation.Nullable;
+import java.util.Objects;
 import java.util.Random;
 
 public class DustBunnyEntity extends CreatureEntity {
@@ -68,9 +69,9 @@ public class DustBunnyEntity extends CreatureEntity {
         this.dataManager.set(SIZE, size);
         this.recenterBoundingBox();
         this.recalculateSize();
-        this.getAttribute(Attributes.MAX_HEALTH).setBaseValue((double)(size * size));
-        this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue((double)(0.2F + 0.1F * (float)size));
-        this.getAttribute(Attributes.ATTACK_DAMAGE).setBaseValue((double)size);
+        Objects.requireNonNull(this.getAttribute(Attributes.MAX_HEALTH)).setBaseValue((double)(size * size));
+        Objects.requireNonNull(this.getAttribute(Attributes.MOVEMENT_SPEED)).setBaseValue((double)(0.2F + 0.1F * (float)size));
+        Objects.requireNonNull(this.getAttribute(Attributes.ATTACK_DAMAGE)).setBaseValue((double)size);
         if (resetHealth) {
             this.setHealth(this.getMaxHealth());
         }
