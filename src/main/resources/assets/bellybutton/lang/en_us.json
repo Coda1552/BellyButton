@@ -2,13 +2,21 @@
   "itemGroup.bellybutton": "Belly Button",
 
   "item.bellybutton.lint": "Lint",
-  "item.bellybutton.dust_bunny_spawn_egg": "Dust Bunny Spawn Egg",
   "item.bellybutton.vacuum": "Vacuum Cleaner",
   "item.bellybutton.dust_bunny": "Dust Bunny",
+  "item.bellybutton.lint_sweater": "Lint Sweater",
+  "item.bellybutton.maid_hairband": "Maid Hairband",
+  "item.bellybutton.maid_dress": "Maid Dress",
+  "item.bellybutton.maid_skirt": "Maid Skirt",
+  "item.bellybutton.maid_shoes": "Maid Shoes",
+
+  "item.bellybutton.dust_bunny_spawn_egg": "Dust Bunny Spawn Egg",
   "item.bellybutton.maid_spawn_egg": "Maid Spawn Egg",
+  "item.bellybutton.evil_dust_bunny_spawn_egg": "Evil Dust Bunny Spawn Egg",
 
   "entity.bellybutton.dust_bunny": "Dust Bunny",
   "entity.bellybutton.maid": "Maid",
+  "entity.bellybutton.evil_dust_bunny": "Evil Dust Bunny",
 
   "block.bellybutton.belly_button": "Belly Button",
   "block.bellybutton.lint_block": "Block of Lint",
