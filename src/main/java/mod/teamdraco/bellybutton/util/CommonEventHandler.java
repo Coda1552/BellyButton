@@ -3,9 +3,11 @@ package mod.teamdraco.bellybutton.util;
 import mod.teamdraco.bellybutton.BellyButton;
 import mod.teamdraco.bellybutton.entity.DustBunnyEntity;
 import mod.teamdraco.bellybutton.init.BellyButtonEnchantments;
+import mod.teamdraco.bellybutton.init.BellyButtonEntities;
 import mod.teamdraco.bellybutton.init.BellyButtonItems;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.merchant.villager.VillagerTrades;
 import net.minecraft.item.Item;
@@ -15,16 +17,15 @@ import net.minecraft.item.MerchantOffer;
 import net.minecraft.loot.LootPool;
 import net.minecraft.loot.TableLootEntry;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.World;
+import net.minecraft.world.biome.Biome;
+import net.minecraft.world.biome.MobSpawnInfo;
 import net.minecraft.world.gen.feature.structure.Structure;
-import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.event.LootTableLoadEvent;
-import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.village.WandererTradesEvent;
 import net.minecraftforge.event.world.BiomeLoadingEvent;
-import net.minecraftforge.event.world.WorldEvent;
-import net.minecraftforge.eventbus.api.Event;
+import net.minecraftforge.event.world.StructureSpawnListGatherEvent;
+import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
@@ -34,6 +35,20 @@ import java.util.Random;
 
 @Mod.EventBusSubscriber(modid = BellyButton.MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class CommonEventHandler {
+
+    @SubscribeEvent
+    public static void dustBunnySpawn(StructureSpawnListGatherEvent event) {
+        if (event.getStructure() == Structure.WOODLAND_MANSION || event.getStructure() == Structure.MINESHAFT) {
+            event.addEntitySpawn(EntityClassification.AMBIENT, new MobSpawnInfo.Spawners(BellyButtonEntities.DUST_BUNNY.get(), 2, 1, 1));
+        }
+    }
+
+    /*@SubscribeEvent(priority = EventPriority.LOWEST)
+    public static void registerBiomes(BiomeLoadingEvent event) {
+        if (event.getCategory() == Biome.Category.DESERT) {
+            event.getSpawns().getSpawner(EntityClassification.CREATURE).add(new MobSpawnInfo.Spawners(BellyButtonEntities.DUST_BUNNY.get(), 4, 1, 1));
+        }
+    }*/
 
     @SubscribeEvent
     public static void lintRollerDrops(LivingDeathEvent event) {

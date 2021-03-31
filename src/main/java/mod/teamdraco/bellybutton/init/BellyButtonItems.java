@@ -21,4 +21,5 @@ public class BellyButtonItems {
     public static final RegistryObject<BlockItem> LINT_CARPET = REGISTER.register("lint_carpet", () -> new BlockItem(BellyButtonBlocks.LINT_CARPET.get(), new Item.Properties().group(BellyButton.GROUP)));
 
     public static final RegistryObject<BellyButtonSpawnEggItem> DUSTY_BUNNY_SPAWN_EGG = REGISTER.register("dust_bunny_spawn_egg", () -> new BellyButtonSpawnEggItem(BellyButtonEntities.DUST_BUNNY, 0x726b65, 0xa9a6a1, new Item.Properties().group(BellyButton.GROUP)));
+    public static final RegistryObject<BellyButtonSpawnEggItem> MAID_SPAWN_EGG = REGISTER.register("maid_spawn_egg", () -> new BellyButtonSpawnEggItem(BellyButtonEntities.MAID, 0x29242c, 0xd7d7d7, new Item.Properties().group(BellyButton.GROUP)));
 }

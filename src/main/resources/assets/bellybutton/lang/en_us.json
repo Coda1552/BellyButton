@@ -5,8 +5,10 @@
   "item.bellybutton.dust_bunny_spawn_egg": "Dust Bunny Spawn Egg",
   "item.bellybutton.vacuum": "Vacuum Cleaner",
   "item.bellybutton.dust_bunny": "Dust Bunny",
+  "item.bellybutton.maid_spawn_egg": "Maid Spawn Egg",
 
   "entity.bellybutton.dust_bunny": "Dust Bunny",
+  "entity.bellybutton.maid": "Maid",
 
   "block.bellybutton.belly_button": "Belly Button",
   "block.bellybutton.lint_block": "Block of Lint",

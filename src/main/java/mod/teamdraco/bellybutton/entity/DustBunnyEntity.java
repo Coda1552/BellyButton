@@ -9,6 +9,7 @@ import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.ai.controller.JumpController;
 import net.minecraft.entity.ai.controller.MovementController;
 import net.minecraft.entity.ai.goal.*;
+import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.passive.OcelotEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -79,7 +80,7 @@ public class DustBunnyEntity extends CreatureEntity {
     }
 
     public static boolean canBunnySpawn(EntityType<? extends DustBunnyEntity> animal, IWorld worldIn, SpawnReason reason, BlockPos pos, Random random) {
-        return worldIn.getBlockState(pos.down()).isIn(Blocks.SAND) && worldIn.getLightSubtracted(pos, 0) > 8;
+        return worldIn.getBlockState(pos.up()).isAir();
     }
 
     public int getSize() {
