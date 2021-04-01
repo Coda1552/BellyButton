@@ -1,13 +1,10 @@
 package teamdraco.bellybutton.init;
 
 import net.minecraft.inventory.EquipmentSlotType;
-import net.minecraft.item.ArmorItem;
-import net.minecraft.item.ArmorMaterial;
+import net.minecraft.item.*;
 import teamdraco.bellybutton.BellyButton;
 import teamdraco.bellybutton.items.BellyButtonSpawnEggItem;
 import teamdraco.bellybutton.items.DustBunnyItem;
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.Item;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -20,7 +17,7 @@ public class BellyButtonItems {
     public static final RegistryObject<Item> LINT = REGISTER.register("lint", () -> new Item(new Item.Properties().group(BellyButton.GROUP)));
     public static final RegistryObject<Item> VACUUM = REGISTER.register("vacuum", () -> new Item(new Item.Properties().group(BellyButton.GROUP).maxStackSize(1)));
     public static final RegistryObject<Item> DUST_BUNNY = REGISTER.register("dust_bunny", () -> new DustBunnyItem(BellyButtonEntities.DUST_BUNNY::get, new Item.Properties().group(BellyButton.GROUP).maxStackSize(1)));
-
+    public static final RegistryObject<Item> MUSIC_DISC_BELLY_BOPPIN = REGISTER.register("music_disc_belly_boppin", () -> new MusicDiscItem(15, BellyButtonSounds.BELLY_BOPPIN::get, new Item.Properties().group(BellyButton.GROUP).maxStackSize(1).rarity(Rarity.EPIC)));
     public static final RegistryObject<Item> LINT_SWEATER = REGISTER.register("lint_sweater", () -> new LintSweaterItem(ArmorMaterial.LEATHER, EquipmentSlotType.CHEST, new Item.Properties().group(BellyButton.GROUP).maxStackSize(1)));
     public static final RegistryObject<Item> MAID_HAIRBAND = REGISTER.register("maid_hairband", () -> new MaidArmorItem(ArmorMaterial.LEATHER, EquipmentSlotType.HEAD, new Item.Properties().group(BellyButton.GROUP).maxStackSize(1)));
     public static final RegistryObject<Item> MAID_DRESS = REGISTER.register("maid_dress", () -> new MaidArmorItem(ArmorMaterial.LEATHER, EquipmentSlotType.CHEST, new Item.Properties().group(BellyButton.GROUP).maxStackSize(1)));

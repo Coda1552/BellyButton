@@ -1,5 +1,11 @@
 package teamdraco.bellybutton;
 
+import net.minecraft.item.Items;
+import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.potion.PotionBrewing;
+import net.minecraft.potion.PotionUtils;
+import net.minecraft.potion.Potions;
+import net.minecraftforge.common.brewing.BrewingRecipeRegistry;
 import teamdraco.bellybutton.entity.DustBunnyEntity;
 import teamdraco.bellybutton.entity.EvilDustBunnyEntity;
 import teamdraco.bellybutton.entity.MaidEntity;
@@ -25,6 +31,8 @@ public class BellyButton {
 
         BellyButtonEnchantments.REGISTER.register(bus);
         BellyButtonSounds.REGISTER.register(bus);
+        BellyButtonEffects.POTIONS.register(bus);
+        BellyButtonEffects.EFFECTS.register(bus);
         BellyButtonItems.REGISTER.register(bus);
         BellyButtonBlocks.REGISTER.register(bus);
         BellyButtonEntities.REGISTER.register(bus);
@@ -34,6 +42,7 @@ public class BellyButton {
         registerEntityAttributes();
         EntitySpawnPlacementRegistry.register(BellyButtonEntities.DUST_BUNNY.get(), EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, DustBunnyEntity::canBunnySpawn);
         EntitySpawnPlacementRegistry.register(BellyButtonEntities.MAID.get(), EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, MaidEntity::canMaidSpawn);
+        BellyButtonEffects.brewingRecipes();
     }
 
     private void registerEntityAttributes() {

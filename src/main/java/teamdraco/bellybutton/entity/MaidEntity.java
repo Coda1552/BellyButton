@@ -6,8 +6,7 @@ import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.merchant.villager.AbstractVillagerEntity;
-import net.minecraft.entity.monster.AbstractIllagerEntity;
-import net.minecraft.entity.monster.AbstractRaiderEntity;
+import net.minecraft.entity.monster.*;
 import net.minecraft.entity.passive.IronGolemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.EquipmentSlotType;
@@ -22,9 +21,12 @@ import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.*;
+import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import teamdraco.bellybutton.init.BellyButtonEntities;
 import teamdraco.bellybutton.init.BellyButtonItems;
+import teamdraco.bellybutton.init.BellyButtonSounds;
 
 import javax.annotation.Nullable;
 import java.util.EnumSet;
@@ -32,7 +34,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.function.Predicate;
 
-public class MaidEntity extends AbstractIllagerEntity {
+public class MaidEntity extends SpellcastingIllagerEntity {
     private final Inventory inventory = new Inventory(6);
     private static final Predicate<ItemEntity> TRUSTED_TARGET_SELECTOR = (p_213489_0_) -> {
         return !p_213489_0_.cannotPickup() && p_213489_0_.isAlive();
@@ -41,25 +43,38 @@ public class MaidEntity extends AbstractIllagerEntity {
     public MaidEntity(EntityType<? extends MaidEntity> type, World worldIn) {
         super(type, worldIn);
         this.setCanPickUpLoot(true);
+        this.experienceValue = 10;
     }
 
     protected void registerGoals() {
         super.registerGoals();
         this.goalSelector.addGoal(0, new SwimGoal(this));
-        this.goalSelector.addGoal(2, new AbstractRaiderEntity.FindTargetGoal(this, 10.0F));
-        this.goalSelector.addGoal(3, new RandomWalkingGoal(this, 0.6D));
-        this.goalSelector.addGoal(4, new MaidEntity.FindItemsGoal());
-        this.goalSelector.addGoal(5, new LookAtGoal(this, PlayerEntity.class, 15.0F, 1.0F));
-        this.goalSelector.addGoal(6, new LookAtGoal(this, MobEntity.class, 15.0F));
+        this.goalSelector.addGoal(1, new MaidEntity.CastingSpellGoal());
+        this.goalSelector.addGoal(2, new AvoidEntityGoal<>(this, PlayerEntity.class, 8.0F, 0.6D, 1.0D));
+        this.goalSelector.addGoal(3, new MaidEntity.SummonSpellGoal());
+        this.goalSelector.addGoal(4, new AbstractRaiderEntity.FindTargetGoal(this, 10.0F));
+        this.goalSelector.addGoal(5, new RandomWalkingGoal(this, 0.6D));
+        this.goalSelector.addGoal(6, new MaidEntity.FindItemsGoal());
+        this.goalSelector.addGoal(7, new LookAtGoal(this, PlayerEntity.class, 15.0F, 1.0F));
+        this.goalSelector.addGoal(8, new LookAtGoal(this, MobEntity.class, 15.0F));
         this.targetSelector.addGoal(1, (new HurtByTargetGoal(this, AbstractRaiderEntity.class)).setCallsForHelp());
         this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, PlayerEntity.class, true));
         this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, AbstractVillagerEntity.class, false));
         this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, IronGolemEntity.class, true));
     }
 
+    @Override
+    protected SoundEvent getSpellSound() {
+        return SoundEvents.ENTITY_EVOKER_CAST_SPELL;
+    }
+
     @OnlyIn(Dist.CLIENT)
     public AbstractIllagerEntity.ArmPose getArmPose() {
-        return ArmPose.NEUTRAL;
+        if (this.isSpellcasting()) {
+            return AbstractIllagerEntity.ArmPose.SPELLCASTING;
+        } else {
+            return this.getCelebrating() ? AbstractIllagerEntity.ArmPose.CELEBRATING : ArmPose.NEUTRAL;
+        }
     }
 
     public boolean canPickUpItem(ItemStack itemstackIn) {
@@ -72,13 +87,12 @@ public class MaidEntity extends AbstractIllagerEntity {
     }
 
     public boolean canEquipItem(ItemStack stack) {
-        Item item = stack.getItem();
         ItemStack itemstack = this.getItemStackFromSlot(EquipmentSlotType.OFFHAND);
         return itemstack.isEmpty();
     }
 
     public static AttributeModifierMap.MutableAttribute createAttributes() {
-        return MobEntity.func_233666_p_().createMutableAttribute(Attributes.MAX_HEALTH, 20.0D).createMutableAttribute(Attributes.MOVEMENT_SPEED, 0.2D);
+        return MobEntity.func_233666_p_().createMutableAttribute(Attributes.MAX_HEALTH, 20.0D).createMutableAttribute(Attributes.MOVEMENT_SPEED, 0.5D);
     }
 
     public static boolean canMaidSpawn(EntityType<? extends MaidEntity> type, IWorld worldIn, SpawnReason reason, BlockPos pos, Random randomIn) {
@@ -95,6 +109,14 @@ public class MaidEntity extends AbstractIllagerEntity {
                 listnbt.add(itemstack.write(new CompoundNBT()));
             }
         }
+    }
+
+    protected void registerData() {
+        super.registerData();
+    }
+
+    protected void updateAITasks() {
+        super.updateAITasks();
     }
 
     @Nullable
@@ -184,7 +206,17 @@ public class MaidEntity extends AbstractIllagerEntity {
             this.onItemPickup(itemEntity, itemstack.getCount());
             itemEntity.remove();
         }
+    }
 
+    class CastingSpellGoal extends SpellcastingIllagerEntity.CastingASpellGoal {
+        private CastingSpellGoal() {
+        }
+
+        public void tick() {
+            if (MaidEntity.this.getAttackTarget() != null) {
+                MaidEntity.this.getLookController().setLookPositionWithEntity(MaidEntity.this.getAttackTarget(), (float) MaidEntity.this.getHorizontalFaceSpeed(), (float) MaidEntity.this.getVerticalFaceSpeed());
+            }
+        }
     }
 
     class FindItemsGoal extends Goal {
@@ -195,8 +227,7 @@ public class MaidEntity extends AbstractIllagerEntity {
         public boolean shouldExecute() {
             if (!MaidEntity.this.getItemStackFromSlot(EquipmentSlotType.OFFHAND).isEmpty()) {
                 return false;
-            }
-            else if (MaidEntity.this.getAttackTarget() == null && MaidEntity.this.getRevengeTarget() == null) {
+            } else if (MaidEntity.this.getAttackTarget() == null && MaidEntity.this.getRevengeTarget() == null) {
                 if (MaidEntity.this.getRNG().nextInt(10) != 0) {
                     return false;
                 } else {
@@ -214,7 +245,6 @@ public class MaidEntity extends AbstractIllagerEntity {
             if (itemstack.isEmpty() && !list.isEmpty()) {
                 MaidEntity.this.getNavigator().tryMoveToEntityLiving(list.get(0), 1.2F);
             }
-
         }
 
         public void startExecuting() {
@@ -222,7 +252,51 @@ public class MaidEntity extends AbstractIllagerEntity {
             if (!list.isEmpty()) {
                 MaidEntity.this.getNavigator().tryMoveToEntityLiving(list.get(0), 1.2F);
             }
+        }
+    }
 
+    class SummonSpellGoal extends SpellcastingIllagerEntity.UseSpellGoal {
+        private final EntityPredicate field_220843_e = (new EntityPredicate()).setDistance(16.0D).setLineOfSiteRequired().setUseInvisibilityCheck().allowInvulnerable().allowFriendlyFire();
+
+        private SummonSpellGoal() {
+        }
+
+        public boolean shouldExecute() {
+            if (!super.shouldExecute()) {
+                return false;
+            } else {
+                int i = MaidEntity.this.world.getTargettableEntitiesWithinAABB(VexEntity.class, this.field_220843_e, MaidEntity.this, MaidEntity.this.getBoundingBox().grow(16.0D)).size();
+                return MaidEntity.this.rand.nextInt(8) + 1 > i;
+            }
+        }
+
+        protected int getCastingTime() {
+            return 100;
+        }
+
+        protected int getCastingInterval() {
+            return 340;
+        }
+
+        protected void castSpell() {
+            ServerWorld serverworld = (ServerWorld) MaidEntity.this.world;
+
+            for (int i = 0; i < 3; ++i) {
+                BlockPos blockpos = MaidEntity.this.getPosition().add(-2 + MaidEntity.this.rand.nextInt(5), 1, -2 + MaidEntity.this.rand.nextInt(5));
+                EvilDustBunnyEntity vexentity = BellyButtonEntities.EVIL_DUST_BUNNY.get().create(MaidEntity.this.world);
+                vexentity.moveToBlockPosAndAngles(blockpos, 0.0F, 0.0F);
+                vexentity.onInitialSpawn(serverworld, MaidEntity.this.world.getDifficultyForLocation(blockpos), SpawnReason.MOB_SUMMONED, (ILivingEntityData) null, (CompoundNBT) null);
+                serverworld.func_242417_l(vexentity);
+            }
+
+        }
+
+        protected SoundEvent getSpellPrepareSound() {
+            return SoundEvents.ENTITY_EVOKER_PREPARE_SUMMON;
+        }
+
+        protected SpellcastingIllagerEntity.SpellType getSpellType() {
+            return SpellcastingIllagerEntity.SpellType.SUMMON_VEX;
         }
     }
 }

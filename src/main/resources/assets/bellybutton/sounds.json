@@ -7,5 +7,14 @@
         "streaming": true
       }
     ]
+  },
+  "belly_boppin": {
+    "subtitle": "subtitle.bellybutton.belly_boppin",
+    "sounds": [
+      {
+        "name": "bellybutton:belly_boppin",
+        "streaming": true
+      }
+    ]
   }
 }

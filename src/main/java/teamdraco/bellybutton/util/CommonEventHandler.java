@@ -1,6 +1,11 @@
 package teamdraco.bellybutton.util;
 
+import net.minecraft.inventory.EquipmentSlotType;
+import net.minecraft.potion.EffectInstance;
+import net.minecraft.util.DamageSource;
+import net.minecraftforge.event.entity.living.LivingDamageEvent;
 import teamdraco.bellybutton.BellyButton;
+import teamdraco.bellybutton.init.BellyButtonEffects;
 import teamdraco.bellybutton.init.BellyButtonEnchantments;
 import teamdraco.bellybutton.init.BellyButtonEntities;
 import teamdraco.bellybutton.init.BellyButtonItems;
@@ -43,11 +48,24 @@ public class CommonEventHandler {
         }
     }
 
+/*    @SubscribeEvent
+    public static void lintSweaterAttack(LivingDamageEvent event) {
+        Entity attacker = event.getSource().getTrueSource();
+        ItemStack chestSlot = ((LivingEntity) attacker).getItemStackFromSlot(EquipmentSlotType.CHEST);
+        LivingEntity livingEntity = (LivingEntity) attacker;
+
+        if (chestSlot.getItem() == BellyButtonItems.LINT_SWEATER.get()) {
+            if (!attacker.getEntityWorld().isRemote) {
+                event.getEntityLiving().addPotionEffect(new EffectInstance(BellyButtonEffects.ITCHY.get(), 100));
+            }
+        }
+    }*/
+
     @SubscribeEvent
     public static void lintRollerDrops(LivingDeathEvent event) {
         Entity attacker = event.getSource().getTrueSource();
 
-        if(attacker instanceof LivingEntity) {
+        if (attacker instanceof LivingEntity) {
             LivingEntity livingEntity = (LivingEntity) attacker;
             ItemStack heldItem = livingEntity.getHeldItemMainhand();
             if (EnchantmentHelper.getEnchantments(heldItem).containsKey(BellyButtonEnchantments.LINT_ROLLER.get())) {

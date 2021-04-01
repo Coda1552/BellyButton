@@ -28,6 +28,7 @@ import net.minecraft.world.IServerWorld;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import teamdraco.bellybutton.init.BellyButtonEffects;
 import teamdraco.bellybutton.init.BellyButtonItems;
 
 import javax.annotation.Nullable;
@@ -97,7 +98,7 @@ public class EvilDustBunnyEntity extends MonsterEntity {
         boolean flag = entityIn.attackEntityFrom(DamageSource.causeMobDamage(this), (float)((int)this.getAttributeValue(Attributes.ATTACK_DAMAGE)));
         if (flag) {
             this.applyEnchantments(this, entityIn);
-            ((LivingEntity)entityIn).addPotionEffect(new EffectInstance(Effects.GLOWING, 100)); //TODO add new effect
+            ((LivingEntity)entityIn).addPotionEffect(new EffectInstance(BellyButtonEffects.ITCHY.get(), 600));
         }
 
         return flag;

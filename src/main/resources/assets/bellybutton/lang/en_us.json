@@ -9,6 +9,8 @@
   "item.bellybutton.maid_dress": "Maid Dress",
   "item.bellybutton.maid_skirt": "Maid Skirt",
   "item.bellybutton.maid_shoes": "Maid Shoes",
+  "item.bellybutton.music_disc_belly_boppin": "Music Disc",
+  "item.bellybutton.music_disc_belly_boppin.desc": "Mr. Esuoh - Belly Boppin'",
 
   "item.bellybutton.dust_bunny_spawn_egg": "Dust Bunny Spawn Egg",
   "item.bellybutton.maid_spawn_egg": "Maid Spawn Egg",
@@ -21,6 +23,21 @@
   "block.bellybutton.belly_button": "Belly Button",
   "block.bellybutton.lint_block": "Block of Lint",
   "block.bellybutton.lint_carpet": "Lint Carpet",
+
+  "effect.bellybutton.itchy": "Itchy",
+
+  "item.minecraft.potion.effect.itchy": "Potion of Itchy",
+  "item.minecraft.potion.effect.itchy_long": "Potion of Itchy",
+  "item.minecraft.potion.effect.itchy_strong": "Potion of Itchy",
+  "item.minecraft.splash_potion.effect.itchy": "Splash Potion of Itchy",
+  "item.minecraft.splash_potion.effect.itchy_long": "Splash Potion of Itchy",
+  "item.minecraft.splash_potion.effect.itchy_strong": "Splash Potion of Itchy",
+  "item.minecraft.lingering_potion.effect.itchy": "Lingering Potion of Itchy",
+  "item.minecraft.lingering_potion.effect.itchy_long": "Lingering Potion of Itchy",
+  "item.minecraft.lingering_potion.effect.itchy_strong": "Lingering Potion of Itchy",
+  "item.minecraft.tipped_arrow.effect.itchy": "Arrow of Itchy",
+  "item.minecraft.tipped_arrow.effect.itchy_long": "Arrow of Itchy",
+  "item.minecraft.tipped_arrow.effect.itchy_strong": "Arrow of Itchy",
 
   "enchantment.bellybutton.lint_roller": "Lint Roller",
 
