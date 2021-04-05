@@ -98,7 +98,7 @@ public class EvilDustBunnyEntity extends MonsterEntity {
         boolean flag = entityIn.attackEntityFrom(DamageSource.causeMobDamage(this), (float)((int)this.getAttributeValue(Attributes.ATTACK_DAMAGE)));
         if (flag) {
             this.applyEnchantments(this, entityIn);
-            ((LivingEntity)entityIn).addPotionEffect(new EffectInstance(BellyButtonEffects.ITCHY.get(), 600));
+            ((LivingEntity)entityIn).addPotionEffect(new EffectInstance(BellyButtonEffects.ITCHY.get(), 200));
         }
 
         return flag;
