@@ -40,6 +40,7 @@
   "item.minecraft.tipped_arrow.effect.itchy_strong": "Arrow of Itchy",
 
   "enchantment.bellybutton.lint_roller": "Lint Roller",
+  "enchantment.bellybutton.lint_roller.desc": "Makes attack targets have a chance to drop lint when killed",
 
   "subtitle.bellybutton.vacuum": "Vacuum sucks"
 }
