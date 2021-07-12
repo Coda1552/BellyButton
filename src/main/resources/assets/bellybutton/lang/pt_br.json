@@ -1,0 +1,46 @@
+{
+  "itemGroup.bellybutton": "Belly Button",
+
+  "item.bellybutton.lint": "Fiapos",
+  "item.bellybutton.vacuum": "Aspirador de pó",
+  "item.bellybutton.dust_bunny": "Coelhinho poeirento",
+  "item.bellybutton.lint_sweater": "Suéter de fiapos",
+  "item.bellybutton.maid_hairband": "Tiara de empregada",
+  "item.bellybutton.maid_dress": "Vestido de empregada",
+  "item.bellybutton.maid_skirt": "Saia de empregada",
+  "item.bellybutton.maid_shoes": "Sapatos de empregada",
+  "item.bellybutton.music_disc_belly_boppin": "Disco de música",
+  "item.bellybutton.music_disc_belly_boppin.desc": "Mr. Esuoh - Belly Boppin'",
+
+  "item.bellybutton.dust_bunny_spawn_egg": "Ovo gerador de coelhinho poeirento",
+  "item.bellybutton.maid_spawn_egg": "Ovo gerador de empregada",
+  "item.bellybutton.evil_dust_bunny_spawn_egg": "Ovo gerador de coelhinho poeirento do mal",
+
+  "entity.bellybutton.dust_bunny": "Coelhinho poeirento",
+  "entity.bellybutton.maid": "Empregada",
+  "entity.bellybutton.evil_dust_bunny": "Coelhinho poeirento do mal",
+
+  "block.bellybutton.belly_button": "Umbigo",
+  "block.bellybutton.lint_block": "Bloco de fiapos",
+  "block.bellybutton.lint_carpet": "Tapete de fiapos",
+
+  "effect.bellybutton.itchy": "Coceira",
+
+  "item.minecraft.potion.effect.itchy": "Poção de coceira",
+  "item.minecraft.potion.effect.itchy_long": "Poção de coceira",
+  "item.minecraft.potion.effect.itchy_strong": "Poção de coceira",
+  "item.minecraft.splash_potion.effect.itchy": "Poção arremessável de coceira",
+  "item.minecraft.splash_potion.effect.itchy_long": "Poção arremessável de coceira",
+  "item.minecraft.splash_potion.effect.itchy_strong": "Poção arremessável de coceira",
+  "item.minecraft.lingering_potion.effect.itchy": "Poção prolongada de coceira",
+  "item.minecraft.lingering_potion.effect.itchy_long": "Poção prolongada de coceira",
+  "item.minecraft.lingering_potion.effect.itchy_strong": "Poção prolongada de coceira",
+  "item.minecraft.tipped_arrow.effect.itchy": "Flecha de coceira",
+  "item.minecraft.tipped_arrow.effect.itchy_long": "Flecha de coceira",
+  "item.minecraft.tipped_arrow.effect.itchy_strong": "Flecha de coceira",
+
+  "enchantment.bellybutton.lint_roller": "Coletor de fiapos",
+  "enchantment.bellybutton.lint_roller.desc": "Faz com que os alvos tenha uma chance de largar fiapos quando mortos",
+
+  "subtitle.bellybutton.vacuum": "Aspirador sugando"
+}
