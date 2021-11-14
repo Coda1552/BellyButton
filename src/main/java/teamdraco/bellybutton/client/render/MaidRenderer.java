@@ -19,10 +19,10 @@ public class MaidRenderer extends IllagerRenderer<MaidEntity> {
         super(renderManagerIn, new IllagerModel<>(0.0F, 0.0F, 64, 64), 0.5F);
         this.addLayer(new VacuumHeldItemLayer<>(this));
         this.addLayer(new HeadLayer<>(this));
-        this.entityModel.func_205062_a().showModel = true;
+        this.model.getHat().visible = true;
     }
 
-    public ResourceLocation getEntityTexture(MaidEntity entity) {
+    public ResourceLocation getTextureLocation(MaidEntity entity) {
          return TEXTURE;
     }
 }

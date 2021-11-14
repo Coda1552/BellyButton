@@ -63,14 +63,14 @@ public class CommonEventHandler {
 
     @SubscribeEvent
     public static void lintRollerDrops(LivingDeathEvent event) {
-        Entity attacker = event.getSource().getTrueSource();
+        Entity attacker = event.getSource().getEntity();
 
         if (attacker instanceof LivingEntity) {
             LivingEntity livingEntity = (LivingEntity) attacker;
-            ItemStack heldItem = livingEntity.getHeldItemMainhand();
+            ItemStack heldItem = livingEntity.getMainHandItem();
             if (EnchantmentHelper.getEnchantments(heldItem).containsKey(BellyButtonEnchantments.LINT_ROLLER.get())) {
-                if (livingEntity.getRNG().nextDouble() < 0.035) {
-                    event.getEntityLiving().entityDropItem(BellyButtonItems.LINT.get());
+                if (livingEntity.getRandom().nextDouble() < 0.035) {
+                    event.getEntityLiving().spawnAtLocation(BellyButtonItems.LINT.get());
                 }
             }
         }
@@ -83,7 +83,7 @@ public class CommonEventHandler {
         }
         String lootLocation = event.getName().toString().replace("minecraft:entities/villager", "");
 
-        event.getTable().addPool(LootPool.builder().addEntry(TableLootEntry.builder(new ResourceLocation(BellyButton.MOD_ID, "inject/villager")).weight(1)).bonusRolls(0, 0).name("inject").build());
+        event.getTable().addPool(LootPool.lootPool().add(TableLootEntry.lootTableReference(new ResourceLocation(BellyButton.MOD_ID, "inject/villager")).setWeight(1)).bonusRolls(0, 0).name("inject").build());
     }
 
     //Thanks to Wolf for helping with the trade code

@@ -22,8 +22,8 @@ public class BellyButtonEffects {
     public static final RegistryObject<Potion> ITCHY_LONG = POTIONS.register("itchy_long", () -> new Potion(new EffectInstance(ITCHY.get(), 900)));
 
     public static void brewingRecipes() {
-        BrewingRecipeRegistry.addRecipe(Ingredient.fromStacks(PotionUtils.addPotionToItemStack(new ItemStack(Items.POTION), Potions.AWKWARD)), Ingredient.fromItems(BellyButtonItems.LINT.get()), PotionUtils.addPotionToItemStack(new ItemStack(Items.POTION), ITCHY_NORMAL.get()));
-        BrewingRecipeRegistry.addRecipe(Ingredient.fromStacks(PotionUtils.addPotionToItemStack(new ItemStack(Items.POTION), ITCHY_NORMAL.get())), Ingredient.fromItems(Items.GLOWSTONE_DUST), PotionUtils.addPotionToItemStack(new ItemStack(Items.POTION), ITCHY_STRONG.get()));
-        BrewingRecipeRegistry.addRecipe(Ingredient.fromStacks(PotionUtils.addPotionToItemStack(new ItemStack(Items.POTION), ITCHY_NORMAL.get())), Ingredient.fromItems(Items.REDSTONE), PotionUtils.addPotionToItemStack(new ItemStack(Items.POTION), ITCHY_LONG.get()));
+        BrewingRecipeRegistry.addRecipe(Ingredient.of(PotionUtils.setPotion(new ItemStack(Items.POTION), Potions.AWKWARD)), Ingredient.of(BellyButtonItems.LINT.get()), PotionUtils.setPotion(new ItemStack(Items.POTION), ITCHY_NORMAL.get()));
+        BrewingRecipeRegistry.addRecipe(Ingredient.of(PotionUtils.setPotion(new ItemStack(Items.POTION), ITCHY_NORMAL.get())), Ingredient.of(Items.GLOWSTONE_DUST), PotionUtils.setPotion(new ItemStack(Items.POTION), ITCHY_STRONG.get()));
+        BrewingRecipeRegistry.addRecipe(Ingredient.of(PotionUtils.setPotion(new ItemStack(Items.POTION), ITCHY_NORMAL.get())), Ingredient.of(Items.REDSTONE), PotionUtils.setPotion(new ItemStack(Items.POTION), ITCHY_LONG.get()));
     }
 }

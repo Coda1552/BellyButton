@@ -35,7 +35,7 @@ import javax.annotation.Nullable;
 import java.util.Objects;
 
 public class EvilDustBunnyEntity extends MonsterEntity {
-    private static final DataParameter<Integer> SIZE = EntityDataManager.createKey(EvilDustBunnyEntity.class, DataSerializers.VARINT);
+    private static final DataParameter<Integer> SIZE = EntityDataManager.defineId(EvilDustBunnyEntity.class, DataSerializers.INT);
     private int jumpTicks;
     private int jumpDuration;
     private boolean wasOnGround;
@@ -46,8 +46,8 @@ public class EvilDustBunnyEntity extends MonsterEntity {
 
     public EvilDustBunnyEntity(EntityType<? extends MonsterEntity> type, World worldIn) {
         super(type, worldIn);
-        this.jumpController = new JumpHelperController(this);
-        this.moveController = new EvilDustBunnyEntity.MoveHelperController(this);
+        this.jumpControl = new JumpHelperController(this);
+        this.moveControl = new EvilDustBunnyEntity.MoveHelperController(this);
         this.setMovementSpeed(0.0D);
     }
 
@@ -62,15 +62,15 @@ public class EvilDustBunnyEntity extends MonsterEntity {
         this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, IronGolemEntity.class, true));
     }
 
-    protected void registerData() {
-        super.registerData();
-        this.dataManager.register(SIZE, 1);
+    protected void defineSynchedData() {
+        super.defineSynchedData();
+        this.entityData.define(SIZE, 1);
     }
 
     protected void setSize(int size, boolean resetHealth) {
-        this.dataManager.set(SIZE, size);
-        this.recenterBoundingBox();
-        this.recalculateSize();
+        this.entityData.set(SIZE, size);
+        this.reapplyPosition();
+        this.refreshDimensions();
         Objects.requireNonNull(this.getAttribute(Attributes.MAX_HEALTH)).setBaseValue(size * size);
         Objects.requireNonNull(this.getAttribute(Attributes.MOVEMENT_SPEED)).setBaseValue(0.2F + 0.1F * (float) size);
         Objects.requireNonNull(this.getAttribute(Attributes.ATTACK_DAMAGE)).setBaseValue(size);
@@ -78,50 +78,50 @@ public class EvilDustBunnyEntity extends MonsterEntity {
             this.setHealth(this.getMaxHealth());
         }
 
-        this.experienceValue = size;
+        this.xpReward = size;
     }
 
-    public boolean attackEntityFrom(DamageSource source, float amount) {
+    public boolean hurt(DamageSource source, float amount) {
         if (this.isInvulnerableTo(source)) {
             return false;
         } else {
-            Entity entity = source.getTrueSource();
+            Entity entity = source.getEntity();
             if (entity != null && !(entity instanceof PlayerEntity) && !(entity instanceof AbstractArrowEntity)) {
                 amount = (amount + 1.0F) / 2.0F;
             }
 
-            return super.attackEntityFrom(source, amount);
+            return super.hurt(source, amount);
         }
     }
 
-    public boolean attackEntityAsMob(Entity entityIn) {
-        boolean flag = entityIn.attackEntityFrom(DamageSource.causeMobDamage(this), (float)((int)this.getAttributeValue(Attributes.ATTACK_DAMAGE)));
+    public boolean doHurtTarget(Entity entityIn) {
+        boolean flag = entityIn.hurt(DamageSource.mobAttack(this), (float)((int)this.getAttributeValue(Attributes.ATTACK_DAMAGE)));
         if (flag) {
-            this.applyEnchantments(this, entityIn);
-            ((LivingEntity)entityIn).addPotionEffect(new EffectInstance(BellyButtonEffects.ITCHY.get(), 200));
+            this.doEnchantDamageEffects(this, entityIn);
+            ((LivingEntity)entityIn).addEffect(new EffectInstance(BellyButtonEffects.ITCHY.get(), 200));
         }
 
         return flag;
     }
 
     public int getSize() {
-        return this.dataManager.get(SIZE);
+        return this.entityData.get(SIZE);
     }
 
-    public void writeAdditional(CompoundNBT compound) {
-        super.writeAdditional(compound);
+    public void addAdditionalSaveData(CompoundNBT compound) {
+        super.addAdditionalSaveData(compound);
         compound.putInt("Size", this.getSize() - 1);
         compound.putBoolean("wasOnGround", this.wasOnGround);
     }
 
-    public void readAdditional(CompoundNBT compound) {
+    public void readAdditionalSaveData(CompoundNBT compound) {
         int i = compound.getInt("Size");
         if (i < 0) {
             i = 0;
         }
 
         this.setSize(i + 1, false);
-        super.readAdditional(compound);
+        super.readAdditionalSaveData(compound);
         this.wasOnGround = compound.getBoolean("wasOnGround");
     }
 
@@ -136,7 +136,7 @@ public class EvilDustBunnyEntity extends MonsterEntity {
         if (this.onGround && !this.wasOnGround) {
             int i = this.getSize();
 
-            this.playSound(this.getSquishSound(), this.getSoundVolume(), ((this.rand.nextFloat() - this.rand.nextFloat()) * 0.2F + 1.0F) / 0.8F);
+            this.playSound(this.getSquishSound(), this.getSoundVolume(), ((this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F) / 0.8F);
             this.squishAmount = -0.5F;
         } else if (!this.onGround && this.wasOnGround) {
             this.squishAmount = 1.0F;
@@ -146,25 +146,25 @@ public class EvilDustBunnyEntity extends MonsterEntity {
         this.alterSquishAmount();
     }
 
-    public void recalculateSize() {
-        double d0 = this.getPosX();
-        double d1 = this.getPosY();
-        double d2 = this.getPosZ();
-        super.recalculateSize();
-        this.setPosition(d0, d1, d2);
+    public void refreshDimensions() {
+        double d0 = this.getX();
+        double d1 = this.getY();
+        double d2 = this.getZ();
+        super.refreshDimensions();
+        this.setPos(d0, d1, d2);
     }
 
-    public void notifyDataManagerChange(DataParameter<?> key) {
+    public void onSyncedDataUpdated(DataParameter<?> key) {
         if (SIZE.equals(key)) {
-            this.recalculateSize();
-            this.rotationYaw = this.rotationYawHead;
-            this.renderYawOffset = this.rotationYawHead;
-            if (this.isInWater() && this.rand.nextInt(20) == 0) {
+            this.refreshDimensions();
+            this.yRot = this.yHeadRot;
+            this.yBodyRot = this.yHeadRot;
+            if (this.isInWater() && this.random.nextInt(20) == 0) {
                 this.doWaterSplashEffect();
             }
         }
 
-        super.notifyDataManagerChange(key);
+        super.onSyncedDataUpdated(key);
     }
 
     public EntityType<? extends EvilDustBunnyEntity> getType() {
@@ -172,15 +172,15 @@ public class EvilDustBunnyEntity extends MonsterEntity {
     }
 
     protected SoundEvent getSquishSound() {
-        return SoundEvents.BLOCK_WOOL_PLACE;
+        return SoundEvents.WOOL_PLACE;
     }
 
     @Override
     public void remove(boolean keepData) {
         int i = this.getSize();
-        if (!this.world.isRemote && i > 1 && this.getShouldBeDead() && !this.removed) {
+        if (!this.level.isClientSide && i > 1 && this.isDeadOrDying() && !this.removed) {
             ITextComponent itextcomponent = this.getCustomName();
-            boolean flag = this.isAIDisabled();
+            boolean flag = this.isNoAi();
             float f = (float) i / 4.0F;
             int j = i / 2;
             int k = 2;
@@ -188,19 +188,19 @@ public class EvilDustBunnyEntity extends MonsterEntity {
             for (int l = 0; l < k; ++l) {
                 float f1 = ((float) (l % 2) - 0.5F) * f;
                 float f2 = ((float) (l / 2) - 0.5F) * f;
-                EvilDustBunnyEntity bunny = this.getType().create(this.world);
-                if (this.isNoDespawnRequired()) {
+                EvilDustBunnyEntity bunny = this.getType().create(this.level);
+                if (this.isPersistenceRequired()) {
                     assert bunny != null;
-                    bunny.enablePersistence();
+                    bunny.setPersistenceRequired();
                 }
 
                 assert bunny != null;
                 bunny.setCustomName(itextcomponent);
-                bunny.setNoAI(flag);
+                bunny.setNoAi(flag);
                 bunny.setInvulnerable(this.isInvulnerable());
                 bunny.setSize(j, true);
-                bunny.setLocationAndAngles(this.getPosX() + (double) f1, this.getPosY() + 0.5D, this.getPosZ() + (double) f2, this.rand.nextFloat() * 360.0F, 0.0F);
-                this.world.addEntity(bunny);
+                bunny.moveTo(this.getX() + (double) f1, this.getY() + 0.5D, this.getZ() + (double) f2, this.random.nextFloat() * 360.0F, 0.0F);
+                this.level.addFreshEntity(bunny);
             }
         }
 
@@ -208,10 +208,10 @@ public class EvilDustBunnyEntity extends MonsterEntity {
     }
 
     @Nullable
-    public ILivingEntityData onInitialSpawn(IServerWorld worldIn, DifficultyInstance difficultyIn, SpawnReason reason, @Nullable ILivingEntityData spawnDataIn, @Nullable CompoundNBT dataTag) {
-        int i = this.rand.nextInt(3);
+    public ILivingEntityData finalizeSpawn(IServerWorld worldIn, DifficultyInstance difficultyIn, SpawnReason reason, @Nullable ILivingEntityData spawnDataIn, @Nullable CompoundNBT dataTag) {
+        int i = this.random.nextInt(3);
         if (dataTag == null) {
-            if (i < 2 && this.rand.nextFloat() < 0.5F * difficultyIn.getClampedAdditionalDifficulty()) {
+            if (i < 2 && this.random.nextFloat() < 0.5F * difficultyIn.getSpecialMultiplier()) {
                 ++i;
             }
 
@@ -222,62 +222,62 @@ public class EvilDustBunnyEntity extends MonsterEntity {
                 this.setSize(dataTag.getInt("Size"), false);
             }
         }
-        return super.onInitialSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
+        return super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
     }
 
-    public EntitySize getSize(Pose poseIn) {
-        return super.getSize(poseIn).scale(0.65F * (float) this.getSize());
+    public EntitySize getDimensions(Pose poseIn) {
+        return super.getDimensions(poseIn).scale(0.65F * (float) this.getSize());
     }
 
     protected void alterSquishAmount() {
         this.squishAmount *= 0.6F;
     }
 
-    public static AttributeModifierMap.MutableAttribute func_234176_m_() {
-        return MobEntity.func_233666_p_().createMutableAttribute(Attributes.MAX_HEALTH, 10.0D).createMutableAttribute(Attributes.ATTACK_DAMAGE, 2.0D);
+    public static AttributeModifierMap.MutableAttribute createAttributes() {
+        return MobEntity.createMobAttributes().add(Attributes.MAX_HEALTH, 10.0D).add(Attributes.ATTACK_DAMAGE, 2.0D);
     }
 
-    protected float getJumpUpwardsMotion() {
-        if (!this.collidedHorizontally && (!this.moveController.isUpdating() || !(this.moveController.getY() > this.getPosY() + 0.5D))) {
-            Path path = this.navigator.getPath();
-            if (path != null && !path.isFinished()) {
-                Vector3d vector3d = path.getPosition(this);
-                if (vector3d.y > this.getPosY() + 0.5D) {
+    protected float getJumpPower() {
+        if (!this.horizontalCollision && (!this.moveControl.hasWanted() || !(this.moveControl.getWantedY() > this.getY() + 0.5D))) {
+            Path path = this.navigation.getPath();
+            if (path != null && !path.isDone()) {
+                Vector3d vector3d = path.getNextEntityPos(this);
+                if (vector3d.y > this.getY() + 0.5D) {
                     return 0.5F;
                 }
             }
 
-            return this.moveController.getSpeed() <= 0.6D ? 0.2F : 0.3F;
+            return this.moveControl.getSpeedModifier() <= 0.6D ? 0.2F : 0.3F;
         } else {
             return 0.5F;
         }
     }
 
-    protected void jump() {
-        super.jump();
-        double d0 = this.moveController.getSpeed();
+    protected void jumpFromGround() {
+        super.jumpFromGround();
+        double d0 = this.moveControl.getSpeedModifier();
         if (d0 > 0.0D) {
-            double d1 = horizontalMag(this.getMotion());
+            double d1 = getHorizontalDistanceSqr(this.getDeltaMovement());
             if (d1 < 0.01D) {
                 this.moveRelative(0.1F, new Vector3d(0.0D, 0.0D, 1.0D));
             }
         }
 
-        if (!this.world.isRemote) {
-            this.world.setEntityState(this, (byte) 1);
+        if (!this.level.isClientSide) {
+            this.level.broadcastEntityEvent(this, (byte) 1);
         }
     }
 
 
     public void setMovementSpeed(double newSpeed) {
-        this.getNavigator().setSpeed(newSpeed);
-        this.moveController.setMoveTo(this.moveController.getX(), this.moveController.getY(), this.moveController.getZ(), newSpeed);
+        this.getNavigation().setSpeedModifier(newSpeed);
+        this.moveControl.setWantedPosition(this.moveControl.getWantedX(), this.moveControl.getWantedY(), this.moveControl.getWantedZ(), newSpeed);
     }
 
     public void setJumping(boolean jumping) {
         super.setJumping(jumping);
         if (jumping) {
-            this.playSound(this.getJumpSound(), this.getSoundVolume(), ((this.rand.nextFloat() - this.rand.nextFloat()) * 0.2F + 1.0F) * 0.8F);
+            this.playSound(this.getJumpSound(), this.getSoundVolume(), ((this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F) * 0.8F);
         }
     }
 
@@ -287,7 +287,7 @@ public class EvilDustBunnyEntity extends MonsterEntity {
         this.jumpTicks = 0;
     }
 
-    public void updateAITasks() {
+    public void customServerAiStep() {
         if (this.currentMoveTypeDuration > 0) {
             --this.currentMoveTypeDuration;
         }
@@ -299,17 +299,17 @@ public class EvilDustBunnyEntity extends MonsterEntity {
             }
 
             if (this.currentMoveTypeDuration == 0) {
-                LivingEntity livingentity = this.getAttackTarget();
-                if (livingentity != null && this.getDistanceSq(livingentity) < 16.0D) {
-                    this.moveController.setMoveTo(livingentity.getPosX(), livingentity.getPosY(), livingentity.getPosZ(), this.moveController.getSpeed());
+                LivingEntity livingentity = this.getTarget();
+                if (livingentity != null && this.distanceToSqr(livingentity) < 16.0D) {
+                    this.moveControl.setWantedPosition(livingentity.getX(), livingentity.getY(), livingentity.getZ(), this.moveControl.getSpeedModifier());
                     this.startJumping();
                     this.wasOnGround = true;
                 }
             }
 
-            EvilDustBunnyEntity.JumpHelperController jumphelpercontroller = (EvilDustBunnyEntity.JumpHelperController) this.jumpController;
+            EvilDustBunnyEntity.JumpHelperController jumphelpercontroller = (EvilDustBunnyEntity.JumpHelperController) this.jumpControl;
             if (!jumphelpercontroller.getIsJumping()) {
-                if (this.moveController.isUpdating() && this.currentMoveTypeDuration == 0) {
+                if (this.moveControl.hasWanted() && this.currentMoveTypeDuration == 0) {
                     this.startJumping();
                 }
             } else if (!jumphelpercontroller.canJump()) {
@@ -320,15 +320,15 @@ public class EvilDustBunnyEntity extends MonsterEntity {
     }
 
     private void enableJumpControl() {
-        ((EvilDustBunnyEntity.JumpHelperController) this.jumpController).setCanJump(true);
+        ((EvilDustBunnyEntity.JumpHelperController) this.jumpControl).setCanJump(true);
     }
 
     private void disableJumpControl() {
-        ((EvilDustBunnyEntity.JumpHelperController) this.jumpController).setCanJump(false);
+        ((EvilDustBunnyEntity.JumpHelperController) this.jumpControl).setCanJump(false);
     }
 
     private void updateMoveTypeDuration() {
-        if (this.moveController.getSpeed() < 2.2D) {
+        if (this.moveControl.getSpeedModifier() < 2.2D) {
             this.currentMoveTypeDuration = 10;
         } else {
             this.currentMoveTypeDuration = 1;
@@ -340,8 +340,8 @@ public class EvilDustBunnyEntity extends MonsterEntity {
         this.disableJumpControl();
     }
 
-    public void livingTick() {
-        super.livingTick();
+    public void aiStep() {
+        super.aiStep();
         if (this.jumpTicks != this.jumpDuration) {
             ++this.jumpTicks;
         } else if (this.jumpDuration != 0) {
@@ -352,28 +352,28 @@ public class EvilDustBunnyEntity extends MonsterEntity {
     }
 
     protected SoundEvent getJumpSound() {
-        return SoundEvents.ENTITY_RABBIT_JUMP;
+        return SoundEvents.RABBIT_JUMP;
     }
 
     protected SoundEvent getAmbientSound() {
-        return SoundEvents.ENTITY_RABBIT_AMBIENT;
+        return SoundEvents.RABBIT_AMBIENT;
     }
 
     protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-        return SoundEvents.ENTITY_RABBIT_HURT;
+        return SoundEvents.RABBIT_HURT;
     }
 
     protected SoundEvent getDeathSound() {
-        return SoundEvents.ENTITY_RABBIT_DEATH;
+        return SoundEvents.RABBIT_DEATH;
     }
 
     @OnlyIn(Dist.CLIENT)
-    public void handleStatusUpdate(byte id) {
+    public void handleEntityEvent(byte id) {
         if (id == 1) {
             this.jumpDuration = 10;
             this.jumpTicks = 0;
         } else {
-            super.handleStatusUpdate(id);
+            super.handleEntityEvent(id);
         }
 
     }
@@ -388,7 +388,7 @@ public class EvilDustBunnyEntity extends MonsterEntity {
         }
 
         public boolean getIsJumping() {
-            return this.isJumping;
+            return this.jump;
         }
 
         public boolean canJump() {
@@ -400,9 +400,9 @@ public class EvilDustBunnyEntity extends MonsterEntity {
         }
 
         public void tick() {
-            if (this.isJumping) {
+            if (this.jump) {
                 this.bunny.startJumping();
-                this.isJumping = false;
+                this.jump = false;
             }
 
         }
@@ -418,21 +418,21 @@ public class EvilDustBunnyEntity extends MonsterEntity {
         }
 
         public void tick() {
-            if (this.bunny.onGround && !this.bunny.isJumping && !((EvilDustBunnyEntity.JumpHelperController) this.bunny.jumpController).getIsJumping()) {
+            if (this.bunny.onGround && !this.bunny.jumping && !((EvilDustBunnyEntity.JumpHelperController) this.bunny.jumpControl).getIsJumping()) {
                 this.bunny.setMovementSpeed(0.0D);
-            } else if (this.isUpdating()) {
+            } else if (this.hasWanted()) {
                 this.bunny.setMovementSpeed(this.nextJumpSpeed);
             }
 
             super.tick();
         }
 
-        public void setMoveTo(double x, double y, double z, double speedIn) {
+        public void setWantedPosition(double x, double y, double z, double speedIn) {
             if (this.bunny.isInWater()) {
                 speedIn = 1.5D;
             }
 
-            super.setMoveTo(x, y, z, speedIn);
+            super.setWantedPosition(x, y, z, speedIn);
             if (speedIn > 0.0D) {
                 this.nextJumpSpeed = speedIn;
             }

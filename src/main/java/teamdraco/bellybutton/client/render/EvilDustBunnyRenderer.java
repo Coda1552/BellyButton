@@ -21,14 +21,14 @@ public class EvilDustBunnyRenderer extends MobRenderer<EvilDustBunnyEntity, Dust
         super(renderManagerIn, new DustBunnyModel<>(), 0.35F);
     }
 
-    protected void preRenderCallback(EvilDustBunnyEntity entity, MatrixStack matrixStackIn, float partialTickTime) {
+    protected void scale(EvilDustBunnyEntity entity, MatrixStack matrixStackIn, float partialTickTime) {
         float f1 = (float)entity.getSize();
         float f2 = MathHelper.lerp(partialTickTime, entity.prevSquishFactor, entity.squishFactor) / (f1 * 0.5F + 1.0F);
         float f3 = 1.0F / (f2 + 1.0F);
         matrixStackIn.scale(f3 * f1, 1.0F / f3 * f1, f3 * f1);
     }
 
-    public ResourceLocation getEntityTexture(EvilDustBunnyEntity entity) {
+    public ResourceLocation getTextureLocation(EvilDustBunnyEntity entity) {
         return TEXTURE;
     }
 }

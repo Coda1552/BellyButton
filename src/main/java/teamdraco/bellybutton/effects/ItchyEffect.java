@@ -11,13 +11,15 @@ public class ItchyEffect extends Effect {
     }
 
     @Override
-    public void performEffect(LivingEntity entityLivingBaseIn, int amplifier) {
-        if (entityLivingBaseIn.getHealth() > 1.0F && entityLivingBaseIn.getRNG().nextFloat() < 0.5D) {
-            entityLivingBaseIn.attackEntityFrom(DamageSource.GENERIC, 2.0F);
+    public void applyEffectTick(LivingEntity entity, int amplifier) {
+        float f = entity.getArmorCoverPercentage();
+
+        if (entity.getHealth() > 1.0F && entity.getRandom().nextFloat() < 0.5D) {
+            entity.hurt(DamageSource.GENERIC, f * 2.0F);
         }
     }
 
-    public boolean isReady(int duration, int amplifier) {
+    public boolean isDurationEffectTick(int duration, int amplifier) {
         int k = 50 >> amplifier;
         if (k > 0) {
             return duration % k == 0;

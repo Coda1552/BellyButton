@@ -46,14 +46,14 @@ public class BellyButton {
     }
 
     private void registerEntityAttributes() {
-        GlobalEntityTypeAttributes.put(BellyButtonEntities.DUST_BUNNY.get(), DustBunnyEntity.func_234176_m_().create());
-        GlobalEntityTypeAttributes.put(BellyButtonEntities.MAID.get(), MaidEntity.createAttributes().create());
-        GlobalEntityTypeAttributes.put(BellyButtonEntities.EVIL_DUST_BUNNY.get(), EvilDustBunnyEntity.func_234176_m_().create());
+        GlobalEntityTypeAttributes.put(BellyButtonEntities.DUST_BUNNY.get(), DustBunnyEntity.createAttributes().build());
+        GlobalEntityTypeAttributes.put(BellyButtonEntities.MAID.get(), MaidEntity.createAttributes().build());
+        GlobalEntityTypeAttributes.put(BellyButtonEntities.EVIL_DUST_BUNNY.get(), EvilDustBunnyEntity.createAttributes().build());
     }
 
     public final static ItemGroup GROUP = new ItemGroup(MOD_ID) {
         @Override
-        public ItemStack createIcon() {
+        public ItemStack makeIcon() {
             return new ItemStack(BellyButtonBlocks.BELLY_BUTTON.get());
         }
     };

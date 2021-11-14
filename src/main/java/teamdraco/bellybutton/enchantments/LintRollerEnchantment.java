@@ -5,6 +5,8 @@ import net.minecraft.enchantment.EnchantmentType;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.inventory.EquipmentSlotType;
 
+import net.minecraft.enchantment.Enchantment.Rarity;
+
 public class LintRollerEnchantment extends Enchantment {
     public LintRollerEnchantment(Rarity rarity, EnchantmentType type, EquipmentSlotType[] slots) {
         super(rarity, type, slots);
@@ -26,7 +28,7 @@ public class LintRollerEnchantment extends Enchantment {
     }
 
     @Override
-    protected boolean canApplyTogether(Enchantment ench) {
-        return !ench.equals(Enchantments.LOOTING);
+    protected boolean checkCompatibility(Enchantment ench) {
+        return !ench.equals(Enchantments.MOB_LOOTING);
     }
 }

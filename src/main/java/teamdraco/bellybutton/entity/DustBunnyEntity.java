@@ -36,7 +36,7 @@ import java.util.Objects;
 import java.util.Random;
 
 public class DustBunnyEntity extends CreatureEntity {
-    private static final DataParameter<Integer> SIZE = EntityDataManager.createKey(DustBunnyEntity.class, DataSerializers.VARINT);
+    private static final DataParameter<Integer> SIZE = EntityDataManager.defineId(DustBunnyEntity.class, DataSerializers.INT);
     private int jumpTicks;
     private int jumpDuration;
     private boolean wasOnGround;
@@ -47,28 +47,28 @@ public class DustBunnyEntity extends CreatureEntity {
 
     public DustBunnyEntity(EntityType<? extends DustBunnyEntity> type, World worldIn) {
         super(type, worldIn);
-        this.jumpController = new DustBunnyEntity.JumpHelperController(this);
-        this.moveController = new DustBunnyEntity.MoveHelperController(this);
+        this.jumpControl = new DustBunnyEntity.JumpHelperController(this);
+        this.moveControl = new DustBunnyEntity.MoveHelperController(this);
         this.setMovementSpeed(0.0D);
     }
 
     protected void registerGoals() {
         this.goalSelector.addGoal(1, new SwimGoal(this));
-        this.goalSelector.addGoal(3, new TemptGoal(this, 1.0D, Ingredient.fromItems(Items.CARROT, Items.GOLDEN_CARROT, Blocks.DANDELION), false));
+        this.goalSelector.addGoal(3, new TemptGoal(this, 1.0D, Ingredient.of(Items.CARROT, Items.GOLDEN_CARROT, Blocks.DANDELION), false));
         this.goalSelector.addGoal(4, new DustBunnyEntity.AvoidEntityGoal<>(this, OcelotEntity.class, 4.0F, 2.2D, 2.2D));
         this.goalSelector.addGoal(6, new WaterAvoidingRandomWalkingGoal(this, 0.6D));
         this.goalSelector.addGoal(11, new LookAtGoal(this, PlayerEntity.class, 10.0F));
     }
 
-    protected void registerData() {
-        super.registerData();
-        this.dataManager.register(SIZE, 1);
+    protected void defineSynchedData() {
+        super.defineSynchedData();
+        this.entityData.define(SIZE, 1);
     }
 
     protected void setSize(int size, boolean resetHealth) {
-        this.dataManager.set(SIZE, size);
-        this.recenterBoundingBox();
-        this.recalculateSize();
+        this.entityData.set(SIZE, size);
+        this.reapplyPosition();
+        this.refreshDimensions();
         Objects.requireNonNull(this.getAttribute(Attributes.MAX_HEALTH)).setBaseValue((double)(size * size));
         Objects.requireNonNull(this.getAttribute(Attributes.MOVEMENT_SPEED)).setBaseValue((double)(0.2F + 0.1F * (float)size));
         Objects.requireNonNull(this.getAttribute(Attributes.ATTACK_DAMAGE)).setBaseValue((double)size);
@@ -76,31 +76,31 @@ public class DustBunnyEntity extends CreatureEntity {
             this.setHealth(this.getMaxHealth());
         }
 
-        this.experienceValue = size;
+        this.xpReward = size;
     }
 
     public static boolean canBunnySpawn(EntityType<? extends DustBunnyEntity> animal, IWorld worldIn, SpawnReason reason, BlockPos pos, Random random) {
-        return worldIn.getBlockState(pos.up()).isAir();
+        return worldIn.getBlockState(pos.above()).isAir();
     }
 
     public int getSize() {
-        return this.dataManager.get(SIZE);
+        return this.entityData.get(SIZE);
     }
 
-    public void writeAdditional(CompoundNBT compound) {
-        super.writeAdditional(compound);
+    public void addAdditionalSaveData(CompoundNBT compound) {
+        super.addAdditionalSaveData(compound);
         compound.putInt("Size", this.getSize() - 1);
         compound.putBoolean("wasOnGround", this.wasOnGround);
     }
 
-    public void readAdditional(CompoundNBT compound) {
+    public void readAdditionalSaveData(CompoundNBT compound) {
         int i = compound.getInt("Size");
         if (i < 0) {
             i = 0;
         }
 
         this.setSize(i + 1, false);
-        super.readAdditional(compound);
+        super.readAdditionalSaveData(compound);
         this.wasOnGround = compound.getBoolean("wasOnGround");
     }
 
@@ -115,7 +115,7 @@ public class DustBunnyEntity extends CreatureEntity {
         if (this.onGround && !this.wasOnGround) {
             int i = this.getSize();
 
-            this.playSound(this.getSquishSound(), this.getSoundVolume(), ((this.rand.nextFloat() - this.rand.nextFloat()) * 0.2F + 1.0F) / 0.8F);
+            this.playSound(this.getSquishSound(), this.getSoundVolume(), ((this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F) / 0.8F);
             this.squishAmount = -0.5F;
         } else if (!this.onGround && this.wasOnGround) {
             this.squishAmount = 1.0F;
@@ -125,25 +125,25 @@ public class DustBunnyEntity extends CreatureEntity {
         this.alterSquishAmount();
     }
 
-    public void recalculateSize() {
-        double d0 = this.getPosX();
-        double d1 = this.getPosY();
-        double d2 = this.getPosZ();
-        super.recalculateSize();
-        this.setPosition(d0, d1, d2);
+    public void refreshDimensions() {
+        double d0 = this.getX();
+        double d1 = this.getY();
+        double d2 = this.getZ();
+        super.refreshDimensions();
+        this.setPos(d0, d1, d2);
     }
 
-    public void notifyDataManagerChange(DataParameter<?> key) {
+    public void onSyncedDataUpdated(DataParameter<?> key) {
         if (SIZE.equals(key)) {
-            this.recalculateSize();
-            this.rotationYaw = this.rotationYawHead;
-            this.renderYawOffset = this.rotationYawHead;
-            if (this.isInWater() && this.rand.nextInt(20) == 0) {
+            this.refreshDimensions();
+            this.yRot = this.yHeadRot;
+            this.yBodyRot = this.yHeadRot;
+            if (this.isInWater() && this.random.nextInt(20) == 0) {
                 this.doWaterSplashEffect();
             }
         }
 
-        super.notifyDataManagerChange(key);
+        super.onSyncedDataUpdated(key);
     }
 
     public EntityType<? extends DustBunnyEntity> getType() {
@@ -151,15 +151,15 @@ public class DustBunnyEntity extends CreatureEntity {
     }
 
     protected SoundEvent getSquishSound() {
-        return SoundEvents.BLOCK_WOOL_PLACE;
+        return SoundEvents.WOOL_PLACE;
     }
 
     @Override
     public void remove(boolean keepData) {
         int i = this.getSize();
-        if (!this.world.isRemote && i > 1 && this.getShouldBeDead() && !this.removed) {
+        if (!this.level.isClientSide && i > 1 && this.isDeadOrDying() && !this.removed) {
             ITextComponent itextcomponent = this.getCustomName();
-            boolean flag = this.isAIDisabled();
+            boolean flag = this.isNoAi();
             float f = (float)i / 4.0F;
             int j = i / 2;
             int k = 2;
@@ -167,17 +167,17 @@ public class DustBunnyEntity extends CreatureEntity {
             for(int l = 0; l < k; ++l) {
                 float f1 = ((float)(l % 2) - 0.5F) * f;
                 float f2 = ((float)(l / 2) - 0.5F) * f;
-                DustBunnyEntity bunny = this.getType().create(this.world);
-                if (this.isNoDespawnRequired()) {
-                    bunny.enablePersistence();
+                DustBunnyEntity bunny = this.getType().create(this.level);
+                if (this.isPersistenceRequired()) {
+                    bunny.setPersistenceRequired();
                 }
 
                 bunny.setCustomName(itextcomponent);
-                bunny.setNoAI(flag);
+                bunny.setNoAi(flag);
                 bunny.setInvulnerable(this.isInvulnerable());
                 bunny.setSize(j, true);
-                bunny.setLocationAndAngles(this.getPosX() + (double)f1, this.getPosY() + 0.5D, this.getPosZ() + (double)f2, this.rand.nextFloat() * 360.0F, 0.0F);
-                this.world.addEntity(bunny);
+                bunny.moveTo(this.getX() + (double)f1, this.getY() + 0.5D, this.getZ() + (double)f2, this.random.nextFloat() * 360.0F, 0.0F);
+                this.level.addFreshEntity(bunny);
             }
         }
 
@@ -185,10 +185,10 @@ public class DustBunnyEntity extends CreatureEntity {
     }
 
     @Nullable
-    public ILivingEntityData onInitialSpawn(IServerWorld worldIn, DifficultyInstance difficultyIn, SpawnReason reason, @Nullable ILivingEntityData spawnDataIn, @Nullable CompoundNBT dataTag) {
-        int i = this.rand.nextInt(3);
+    public ILivingEntityData finalizeSpawn(IServerWorld worldIn, DifficultyInstance difficultyIn, SpawnReason reason, @Nullable ILivingEntityData spawnDataIn, @Nullable CompoundNBT dataTag) {
+        int i = this.random.nextInt(3);
         if (dataTag == null) {
-            if (i < 2 && this.rand.nextFloat() < 0.5F * difficultyIn.getClampedAdditionalDifficulty()) {
+            if (i < 2 && this.random.nextFloat() < 0.5F * difficultyIn.getSpecialMultiplier()) {
                 ++i;
             }
 
@@ -200,40 +200,40 @@ public class DustBunnyEntity extends CreatureEntity {
                 this.setSize(dataTag.getInt("Size"), false);
             }
         }
-        return super.onInitialSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
+        return super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
     }
 
-    public EntitySize getSize(Pose poseIn) {
-        return super.getSize(poseIn).scale(0.65F * (float)this.getSize());
+    public EntitySize getDimensions(Pose poseIn) {
+        return super.getDimensions(poseIn).scale(0.65F * (float)this.getSize());
     }
 
     protected void alterSquishAmount() {
         this.squishAmount *= 0.6F;
     }
 
-    public static AttributeModifierMap.MutableAttribute func_234176_m_() {
-        return MobEntity.func_233666_p_().createMutableAttribute(Attributes.MAX_HEALTH, 6.0D).createMutableAttribute(Attributes.ATTACK_DAMAGE, 1.0D);
+    public static AttributeModifierMap.MutableAttribute createAttributes() {
+        return MobEntity.createMobAttributes().add(Attributes.MAX_HEALTH, 6.0D).add(Attributes.ATTACK_DAMAGE, 1.0D);
     }
 
     @Override
-    protected ActionResultType func_230254_b_(PlayerEntity player, Hand hand) {
-        ItemStack itemstack = player.getHeldItem(hand);
+    protected ActionResultType mobInteract(PlayerEntity player, Hand hand) {
+        ItemStack itemstack = player.getItemInHand(hand);
         if (itemstack.getItem() == BellyButtonItems.VACUUM.get()) {
             player.playSound(BellyButtonSounds.VACUUM.get(), 0.4F, 1.0F);
-            itemstack.damageItem(1, player, (p_220009_1_) -> {
-                p_220009_1_.sendBreakAnimation(player.getActiveHand());
+            itemstack.hurtAndBreak(1, player, (p_220009_1_) -> {
+                p_220009_1_.broadcastBreakEvent(player.getUsedItemHand());
             });
             ItemStack itemstack1 = new ItemStack(BellyButtonItems.DUST_BUNNY.get());
             this.setItemData(itemstack1);
-            player.addItemStackToInventory(itemstack1);
-            if (!player.inventory.addItemStackToInventory(itemstack1)) {
-                player.dropItem(itemstack1, false);
+            player.addItem(itemstack1);
+            if (!player.inventory.add(itemstack1)) {
+                player.drop(itemstack1, false);
             }
 
             this.remove();
-            return ActionResultType.func_233537_a_(this.world.isRemote);
+            return ActionResultType.sidedSuccess(this.level.isClientSide);
         } else {
-            return super.func_230254_b_(player, hand);
+            return super.mobInteract(player, hand);
         }
     }
 
@@ -246,47 +246,47 @@ public class DustBunnyEntity extends CreatureEntity {
         }
     }
 
-    protected float getJumpUpwardsMotion() {
-        if (!this.collidedHorizontally && (!this.moveController.isUpdating() || !(this.moveController.getY() > this.getPosY() + 0.5D))) {
-            Path path = this.navigator.getPath();
-            if (path != null && !path.isFinished()) {
-                Vector3d vector3d = path.getPosition(this);
-                if (vector3d.y > this.getPosY() + 0.5D) {
+    protected float getJumpPower() {
+        if (!this.horizontalCollision && (!this.moveControl.hasWanted() || !(this.moveControl.getWantedY() > this.getY() + 0.5D))) {
+            Path path = this.navigation.getPath();
+            if (path != null && !path.isDone()) {
+                Vector3d vector3d = path.getNextEntityPos(this);
+                if (vector3d.y > this.getY() + 0.5D) {
                     return 0.5F;
                 }
             }
 
-            return this.moveController.getSpeed() <= 0.6D ? 0.2F : 0.3F;
+            return this.moveControl.getSpeedModifier() <= 0.6D ? 0.2F : 0.3F;
         } else {
             return 0.5F;
         }
     }
 
-    protected void jump() {
-        super.jump();
-        double d0 = this.moveController.getSpeed();
+    protected void jumpFromGround() {
+        super.jumpFromGround();
+        double d0 = this.moveControl.getSpeedModifier();
         if (d0 > 0.0D) {
-            double d1 = horizontalMag(this.getMotion());
+            double d1 = getHorizontalDistanceSqr(this.getDeltaMovement());
             if (d1 < 0.01D) {
                 this.moveRelative(0.1F, new Vector3d(0.0D, 0.0D, 1.0D));
             }
         }
 
-        if (!this.world.isRemote) {
-            this.world.setEntityState(this, (byte)1);
+        if (!this.level.isClientSide) {
+            this.level.broadcastEntityEvent(this, (byte)1);
         }
     }
 
 
     public void setMovementSpeed(double newSpeed) {
-        this.getNavigator().setSpeed(newSpeed);
-        this.moveController.setMoveTo(this.moveController.getX(), this.moveController.getY(), this.moveController.getZ(), newSpeed);
+        this.getNavigation().setSpeedModifier(newSpeed);
+        this.moveControl.setWantedPosition(this.moveControl.getWantedX(), this.moveControl.getWantedY(), this.moveControl.getWantedZ(), newSpeed);
     }
 
     public void setJumping(boolean jumping) {
         super.setJumping(jumping);
         if (jumping) {
-            this.playSound(this.getJumpSound(), this.getSoundVolume(), ((this.rand.nextFloat() - this.rand.nextFloat()) * 0.2F + 1.0F) * 0.8F);
+            this.playSound(this.getJumpSound(), this.getSoundVolume(), ((this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F) * 0.8F);
         }
     }
 
@@ -296,7 +296,7 @@ public class DustBunnyEntity extends CreatureEntity {
         this.jumpTicks = 0;
     }
 
-    public void updateAITasks() {
+    public void customServerAiStep() {
         if (this.currentMoveTypeDuration > 0) {
             --this.currentMoveTypeDuration;
         }
@@ -308,21 +308,21 @@ public class DustBunnyEntity extends CreatureEntity {
             }
 
             if (this.currentMoveTypeDuration == 0) {
-                LivingEntity livingentity = this.getAttackTarget();
-                if (livingentity != null && this.getDistanceSq(livingentity) < 16.0D) {
-                    this.moveController.setMoveTo(livingentity.getPosX(), livingentity.getPosY(), livingentity.getPosZ(), this.moveController.getSpeed());
+                LivingEntity livingentity = this.getTarget();
+                if (livingentity != null && this.distanceToSqr(livingentity) < 16.0D) {
+                    this.moveControl.setWantedPosition(livingentity.getX(), livingentity.getY(), livingentity.getZ(), this.moveControl.getSpeedModifier());
                     this.startJumping();
                     this.wasOnGround = true;
                 }
             }
 
-            DustBunnyEntity.JumpHelperController jumphelpercontroller = (DustBunnyEntity.JumpHelperController)this.jumpController;
+            DustBunnyEntity.JumpHelperController jumphelpercontroller = (DustBunnyEntity.JumpHelperController)this.jumpControl;
             if (!jumphelpercontroller.getIsJumping()) {
-                if (this.moveController.isUpdating() && this.currentMoveTypeDuration == 0) {
-                    Path path = this.navigator.getPath();
-                    Vector3d vector3d = new Vector3d(this.moveController.getX(), this.moveController.getY(), this.moveController.getZ());
-                    if (path != null && !path.isFinished()) {
-                        vector3d = path.getPosition(this);
+                if (this.moveControl.hasWanted() && this.currentMoveTypeDuration == 0) {
+                    Path path = this.navigation.getPath();
+                    Vector3d vector3d = new Vector3d(this.moveControl.getWantedX(), this.moveControl.getWantedY(), this.moveControl.getWantedZ());
+                    if (path != null && !path.isDone()) {
+                        vector3d = path.getNextEntityPos(this);
                     }
 
                     this.startJumping();
@@ -335,15 +335,15 @@ public class DustBunnyEntity extends CreatureEntity {
     }
 
     private void enableJumpControl() {
-        ((DustBunnyEntity.JumpHelperController)this.jumpController).setCanJump(true);
+        ((DustBunnyEntity.JumpHelperController)this.jumpControl).setCanJump(true);
     }
 
     private void disableJumpControl() {
-        ((DustBunnyEntity.JumpHelperController)this.jumpController).setCanJump(false);
+        ((DustBunnyEntity.JumpHelperController)this.jumpControl).setCanJump(false);
     }
 
     private void updateMoveTypeDuration() {
-        if (this.moveController.getSpeed() < 2.2D) {
+        if (this.moveControl.getSpeedModifier() < 2.2D) {
             this.currentMoveTypeDuration = 10;
         } else {
             this.currentMoveTypeDuration = 1;
@@ -355,8 +355,8 @@ public class DustBunnyEntity extends CreatureEntity {
         this.disableJumpControl();
     }
 
-    public void livingTick() {
-        super.livingTick();
+    public void aiStep() {
+        super.aiStep();
         if (this.jumpTicks != this.jumpDuration) {
             ++this.jumpTicks;
         } else if (this.jumpDuration != 0) {
@@ -367,28 +367,28 @@ public class DustBunnyEntity extends CreatureEntity {
     }
 
     protected SoundEvent getJumpSound() {
-        return SoundEvents.ENTITY_RABBIT_JUMP;
+        return SoundEvents.RABBIT_JUMP;
     }
 
     protected SoundEvent getAmbientSound() {
-        return SoundEvents.ENTITY_RABBIT_AMBIENT;
+        return SoundEvents.RABBIT_AMBIENT;
     }
 
     protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-        return SoundEvents.ENTITY_RABBIT_HURT;
+        return SoundEvents.RABBIT_HURT;
     }
 
     protected SoundEvent getDeathSound() {
-        return SoundEvents.ENTITY_RABBIT_DEATH;
+        return SoundEvents.RABBIT_DEATH;
     }
 
     @OnlyIn(Dist.CLIENT)
-    public void handleStatusUpdate(byte id) {
+    public void handleEntityEvent(byte id) {
         if (id == 1) {
             this.jumpDuration = 10;
             this.jumpTicks = 0;
         } else {
-            super.handleStatusUpdate(id);
+            super.handleEntityEvent(id);
         }
 
     }
@@ -403,7 +403,7 @@ public class DustBunnyEntity extends CreatureEntity {
         }
 
         public boolean getIsJumping() {
-            return this.isJumping;
+            return this.jump;
         }
 
         public boolean canJump() {
@@ -418,9 +418,9 @@ public class DustBunnyEntity extends CreatureEntity {
          * Called to actually make the entity jump if isJumping is true.
          */
         public void tick() {
-            if (this.isJumping) {
+            if (this.jump) {
                 this.bunny.startJumping();
-                this.isJumping = false;
+                this.jump = false;
             }
 
         }
@@ -436,9 +436,9 @@ public class DustBunnyEntity extends CreatureEntity {
         }
 
         public void tick() {
-            if (this.bunny.onGround && !this.bunny.isJumping && !((DustBunnyEntity.JumpHelperController)this.bunny.jumpController).getIsJumping()) {
+            if (this.bunny.onGround && !this.bunny.jumping && !((DustBunnyEntity.JumpHelperController)this.bunny.jumpControl).getIsJumping()) {
                 this.bunny.setMovementSpeed(0.0D);
-            } else if (this.isUpdating()) {
+            } else if (this.hasWanted()) {
                 this.bunny.setMovementSpeed(this.nextJumpSpeed);
             }
 
@@ -448,12 +448,12 @@ public class DustBunnyEntity extends CreatureEntity {
         /**
          * Sets the speed and location to move to
          */
-        public void setMoveTo(double x, double y, double z, double speedIn) {
+        public void setWantedPosition(double x, double y, double z, double speedIn) {
             if (this.bunny.isInWater()) {
                 speedIn = 1.5D;
             }
 
-            super.setMoveTo(x, y, z, speedIn);
+            super.setWantedPosition(x, y, z, speedIn);
             if (speedIn > 0.0D) {
                 this.nextJumpSpeed = speedIn;
             }
@@ -465,7 +465,7 @@ public class DustBunnyEntity extends CreatureEntity {
         CompoundNBT compoundnbt = bucket.getOrCreateTag();
         compoundnbt.putInt("Size", this.getSize());
         if (this.hasCustomName()) {
-            bucket.setDisplayName(this.getCustomName());
+            bucket.setHoverName(this.getCustomName());
         }
     }
 

@@ -28,7 +28,7 @@ public class ClientEventHandler {
         RenderingRegistry.registerEntityRenderingHandler(BellyButtonEntities.MAID.get(), MaidRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(BellyButtonEntities.EVIL_DUST_BUNNY.get(), EvilDustBunnyRenderer::new);
 
-        RenderTypeLookup.setRenderLayer(BellyButtonBlocks.LINT_CARPET.get(), RenderType.getCutout());
+        RenderTypeLookup.setRenderLayer(BellyButtonBlocks.LINT_CARPET.get(), RenderType.cutout());
     }
 
     @SubscribeEvent

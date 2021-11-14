@@ -15,30 +15,32 @@ import net.minecraft.world.server.ServerWorld;
 
 import java.util.Objects;
 
+import net.minecraft.item.Item.Properties;
+
 public class DustBunnyItem extends Item {
     public DustBunnyItem(java.util.function.Supplier<? extends EntityType<?>> bunny, Properties properties) {
         super(properties);
     }
 
-    public ActionResultType onItemUse(ItemUseContext context) {
-        World world = context.getWorld();
-        if (world.isRemote) {
+    public ActionResultType useOn(ItemUseContext context) {
+        World world = context.getLevel();
+        if (world.isClientSide) {
             return ActionResultType.SUCCESS;
         } else {
-            ItemStack itemstack = context.getItem();
-            BlockPos blockpos = context.getPos();
-            Direction direction = context.getFace();
+            ItemStack itemstack = context.getItemInHand();
+            BlockPos blockpos = context.getClickedPos();
+            Direction direction = context.getClickedFace();
             BlockState blockstate = world.getBlockState(blockpos);
 
             BlockPos blockpos1;
             if (blockstate.getCollisionShape(world, blockpos).isEmpty()) {
                 blockpos1 = blockpos;
             } else {
-                blockpos1 = blockpos.offset(direction);
+                blockpos1 = blockpos.relative(direction);
             }
             EntityType<?> entitytype = BellyButtonEntities.DUST_BUNNY.get();
             if (entitytype.spawn((ServerWorld) world, itemstack, context.getPlayer(), blockpos1, SpawnReason.BUCKET, true, !Objects.equals(blockpos, blockpos1) && direction == Direction.UP) != null) {
-                if(!context.getPlayer().abilities.isCreativeMode) {
+                if(!context.getPlayer().abilities.instabuild) {
                     itemstack.shrink(1);
                 }
             }

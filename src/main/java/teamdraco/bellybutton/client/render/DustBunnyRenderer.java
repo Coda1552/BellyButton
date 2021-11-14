@@ -21,15 +21,15 @@ public class DustBunnyRenderer extends MobRenderer<DustBunnyEntity, DustBunnyMod
         super(renderManagerIn, new DustBunnyModel<>(), 0.2F);
     }
 
-    protected void preRenderCallback(DustBunnyEntity entity, MatrixStack matrixStackIn, float partialTickTime) {
+    protected void scale(DustBunnyEntity entity, MatrixStack matrixStackIn, float partialTickTime) {
         float f1 = (float)entity.getSize();
         float f2 = MathHelper.lerp(partialTickTime, entity.prevSquishFactor, entity.squishFactor) / (f1 * 0.5F + 1.0F);
         float f3 = 1.0F / (f2 + 1.0F);
         matrixStackIn.scale(f3 * f1, 1.0F / f3 * f1, f3 * f1);
     }
 
-    public ResourceLocation getEntityTexture(DustBunnyEntity entity) {
-        String s = TextFormatting.getTextWithoutFormattingCodes(entity.getName().getString());
+    public ResourceLocation getTextureLocation(DustBunnyEntity entity) {
+        String s = TextFormatting.stripFormatting(entity.getName().getString());
         if (s != null && "Big Chungus".equals(s)) {
             return BIG_CHUNGUS;
         }
