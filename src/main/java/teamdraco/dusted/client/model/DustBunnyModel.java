@@ -32,10 +32,10 @@ public class DustBunnyModel<T extends Entity> extends EntityModel<T> {
         MeshDefinition meshdefinition = new MeshDefinition();
         PartDefinition root = meshdefinition.getRoot();
         PartDefinition body = root.addOrReplaceChild("body", CubeListBuilder.create().texOffs(0, 0).addBox(-5.0F, -5.0F, -5.0F, 10.0F, 10.0F, 10.0F, false), PartPose.offsetAndRotation(0.0F, 19.0F, 0.0F, 0.0F, 0.0F, 0.0F));
-        PartDefinition ear_right = body.addOrReplaceChild("ear_right", CubeListBuilder.create().texOffs(0, 2).addBox(-1.5F, -8.0F, 0.0F, 3.0F, 8.0F, 1.0F, true), PartPose.offsetAndRotation(3.0F, -4.0F, -1.0F, 0.0F, 0.0F, 0.43633232F));
-        PartDefinition tail = body.addOrReplaceChild("tail", CubeListBuilder.create().texOffs(80, 0).addBox(-2.0F, -2.0F, 0.0F, 4.0F, 4.0F, 3.0F, false), PartPose.offsetAndRotation(0.0F, 2.0F, 5.0F, 0.0F, 0.0F, 0.0F));
+        PartDefinition ear_right = body.addOrReplaceChild("ear_right", CubeListBuilder.create().texOffs(0, 0).addBox(-1.5F, -8.0F, 0.0F, 3.0F, 8.0F, 1.0F, true), PartPose.offsetAndRotation(3.0F, -4.0F, -1.0F, 0.0F, 0.0F, 0.43633232F));
+        PartDefinition tail = body.addOrReplaceChild("tail", CubeListBuilder.create().texOffs(30, 0).addBox(-2.0F, -2.0F, 0.0F, 4.0F, 4.0F, 3.0F, false), PartPose.offsetAndRotation(0.0F, 2.0F, 5.0F, 0.0F, 0.0F, 0.0F));
         PartDefinition ear_left = body.addOrReplaceChild("ear_left", CubeListBuilder.create().texOffs(0, 0).addBox(-1.5F, -8.0F, 0.0F, 3.0F, 8.0F, 1.0F, false), PartPose.offsetAndRotation(-3.0F, -4.0F, -1.0F, 0.0F, 0.0F, -0.43633232F));
-        return LayerDefinition.create(meshdefinition, 128, 64);
+        return LayerDefinition.create(meshdefinition, 48, 32);
     }
 
     @Override

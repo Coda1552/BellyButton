@@ -216,7 +216,6 @@ public class DustBunnyEntity extends PathfinderMob {
         return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 6.0D).add(Attributes.ATTACK_DAMAGE, 1.0D);
     }
 
-
     @Override
     protected InteractionResult mobInteract(Player player, InteractionHand hand) {
         ItemStack itemstack = player.getItemInHand(hand);

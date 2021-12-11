@@ -1,5 +1,7 @@
 package teamdraco.dusted.common.entities;
 
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
@@ -10,6 +12,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.HitResult;
 import teamdraco.dusted.init.BellyButtonItems;
+import teamdraco.dusted.init.BellyButtonSounds;
 
 public class EvilDustBunnyEntity extends DustBunnyEntity {
 
@@ -31,5 +34,10 @@ public class EvilDustBunnyEntity extends DustBunnyEntity {
     @Override
     public ItemStack getPickedResult(HitResult target) {
         return new ItemStack(BellyButtonItems.EVIL_DUSTY_BUNNY_SPAWN_EGG.get());
+    }
+
+    @Override
+    protected InteractionResult mobInteract(Player player, InteractionHand hand) {
+        return InteractionResult.PASS;
     }
 }

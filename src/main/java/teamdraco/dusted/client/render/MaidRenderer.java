@@ -14,7 +14,7 @@ import teamdraco.dusted.common.entities.MaidEntity;
 @OnlyIn(Dist.CLIENT)
 public class MaidRenderer extends IllagerRenderer<MaidEntity> {
     private static final ResourceLocation TEXTURE = new ResourceLocation(BellyButton.MOD_ID, "textures/entity/maid.png");
-    public static final ModelLayerLocation MAID = new ModelLayerLocation(new ResourceLocation(BellyButton.MOD_ID, "illusioner"), "main");
+    public static final ModelLayerLocation MAID = new ModelLayerLocation(new ResourceLocation(BellyButton.MOD_ID, "maid"), "main");
 
     public MaidRenderer(EntityRendererProvider.Context manager) {
         super(manager, new IllagerModel<>(manager.bakeLayer(MAID)), 0.5F);
