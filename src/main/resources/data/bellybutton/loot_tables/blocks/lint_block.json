@@ -6,7 +6,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "bellybutton:lint_block"
+          "name": "dusted:lint_block"
         }
       ],
       "conditions": [

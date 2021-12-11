@@ -2,8 +2,8 @@
 	"credit": "Made by Ninni",
 	"parent": "block/block",
 	"textures": {
-		"particle": "bellybutton:block/belly_button",
-		"texture": "bellybutton:block/belly_button"
+		"particle": "dusted:block/belly_button",
+		"texture": "dusted:block/belly_button"
 	},
 	"elements": [
 		{

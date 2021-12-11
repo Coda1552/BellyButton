@@ -1,30 +1,30 @@
 {
-  "itemGroup.bellybutton": "Belly Button",
+  "itemGroup.dusted": "Belly Button",
 
-  "item.bellybutton.lint": "Lint",
-  "item.bellybutton.vacuum": "Vacuum Cleaner",
-  "item.bellybutton.dust_bunny": "Dust Bunny",
-  "item.bellybutton.lint_sweater": "Lint Sweater",
-  "item.bellybutton.maid_hairband": "Maid Hairband",
-  "item.bellybutton.maid_dress": "Maid Dress",
-  "item.bellybutton.maid_skirt": "Maid Skirt",
-  "item.bellybutton.maid_shoes": "Maid Shoes",
-  "item.bellybutton.music_disc_belly_boppin": "Music Disc",
-  "item.bellybutton.music_disc_belly_boppin.desc": "Mr. Esuoh - Belly Boppin'",
+  "item.dusted.lint": "Lint",
+  "item.dusted.vacuum": "Vacuum Cleaner",
+  "item.dusted.dust_bunny": "Dust Bunny",
+  "item.dusted.lint_sweater": "Lint Sweater",
+  "item.dusted.maid_hairband": "Maid Hairband",
+  "item.dusted.maid_dress": "Maid Dress",
+  "item.dusted.maid_skirt": "Maid Skirt",
+  "item.dusted.maid_shoes": "Maid Shoes",
+  "item.dusted.music_disc_belly_boppin": "Music Disc",
+  "item.dusted.music_disc_belly_boppin.desc": "Mr. Esuoh - Belly Boppin'",
 
-  "item.bellybutton.dust_bunny_spawn_egg": "Dust Bunny Spawn Egg",
-  "item.bellybutton.maid_spawn_egg": "Maid Spawn Egg",
-  "item.bellybutton.evil_dust_bunny_spawn_egg": "Evil Dust Bunny Spawn Egg",
+  "item.dusted.dust_bunny_spawn_egg": "Dust Bunny Spawn Egg",
+  "item.dusted.maid_spawn_egg": "Maid Spawn Egg",
+  "item.dusted.evil_dust_bunny_spawn_egg": "Evil Dust Bunny Spawn Egg",
 
-  "entity.bellybutton.dust_bunny": "Dust Bunny",
-  "entity.bellybutton.maid": "Maid",
-  "entity.bellybutton.evil_dust_bunny": "Evil Dust Bunny",
+  "entity.dusted.dust_bunny": "Dust Bunny",
+  "entity.dusted.maid": "Maid",
+  "entity.dusted.evil_dust_bunny": "Evil Dust Bunny",
 
-  "block.bellybutton.belly_button": "Belly Button",
-  "block.bellybutton.lint_block": "Block of Lint",
-  "block.bellybutton.lint_carpet": "Lint Carpet",
+  "block.dusted.belly_button": "Belly Button",
+  "block.dusted.lint_block": "Block of Lint",
+  "block.dusted.lint_carpet": "Lint Carpet",
 
-  "effect.bellybutton.itchy": "Itchy",
+  "effect.dusted.itchy": "Itchy",
 
   "item.minecraft.potion.effect.itchy": "Potion of Itchy",
   "item.minecraft.potion.effect.itchy_long": "Potion of Itchy",
@@ -39,8 +39,8 @@
   "item.minecraft.tipped_arrow.effect.itchy_long": "Arrow of Itchy",
   "item.minecraft.tipped_arrow.effect.itchy_strong": "Arrow of Itchy",
 
-  "enchantment.bellybutton.lint_roller": "Lint Roller",
-  "enchantment.bellybutton.lint_roller.desc": "Makes attack targets have a chance to drop lint when killed",
+  "enchantment.dusted.lint_roller": "Lint Roller",
+  "enchantment.dusted.lint_roller.desc": "Makes attack targets have a chance to drop lint when killed",
 
-  "subtitle.bellybutton.vacuum": "Vacuum sucks"
+  "subtitle.dusted.vacuum": "Vacuum sucks"
 }

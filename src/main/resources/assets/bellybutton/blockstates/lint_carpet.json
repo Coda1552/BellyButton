@@ -1,7 +1,7 @@
 {
   "variants": {
     "": {
-      "model": "bellybutton:block/lint_carpet"
+      "model": "dusted:block/lint_carpet"
     }
   }
 }

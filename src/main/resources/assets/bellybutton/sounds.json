@@ -1,18 +1,18 @@
 {
   "vacuum": {
-    "subtitle": "subtitle.bellybutton.vacuum",
+    "subtitle": "subtitle.dusted.vacuum",
     "sounds": [
       {
-        "name": "bellybutton:vacuum",
+        "name": "dusted:vacuum",
         "streaming": true
       }
     ]
   },
   "belly_boppin": {
-    "subtitle": "subtitle.bellybutton.belly_boppin",
+    "subtitle": "subtitle.dusted.belly_boppin",
     "sounds": [
       {
-        "name": "bellybutton:belly_boppin",
+        "name": "dusted:belly_boppin",
         "streaming": true
       }
     ]

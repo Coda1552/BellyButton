@@ -7,10 +7,10 @@
   ],
   "key": {
     "X": {
-      "item": "bellybutton:lint"
+      "item": "dusted:lint"
     }
   },
   "result": {
-    "item": "bellybutton:lint_sweater"
+    "item": "dusted:lint_sweater"
   }
 }
