@@ -1,7 +1,7 @@
 {
   "variants": {
     "": {
-      "model": "bellybutton:block/lint_block"
+      "model": "dusted:block/lint_block"
     }
   }
 }

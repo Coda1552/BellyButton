@@ -23,7 +23,7 @@
               }
             }
           ],
-          "name": "bellybutton:lint"
+          "name": "dusted:lint"
         }
       ]
     }

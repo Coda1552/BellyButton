@@ -1,9 +1,9 @@
 {
 	"credit": "Made with Blockbench",
 	"textures": {
-		"0": "bellybutton:block/lint_block",
-		"1": "bellybutton:block/lint_carpet",
-		"particle": "bellybutton:block/lint_block"
+		"0": "dusted:block/lint_block",
+		"1": "dusted:block/lint_carpet",
+		"particle": "dusted:block/lint_block"
 	},
 	"elements": [
 		{

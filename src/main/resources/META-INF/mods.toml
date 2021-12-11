@@ -1,11 +1,10 @@
 modLoader="javafml" #mandatory
-loaderVersion="[36,)" #mandatory This is typically bumped every Minecraft version by Forge. See our download page for lists of versions.
+loaderVersion="[39,)" #mandatory This is typically bumped every Minecraft version by Forge. See our download page for lists of versions.
 license="All rights reserved"
 [[mods]] #mandatory
-modId="bellybutton" #mandatory
+modId="dusted" #mandatory
 version="${file.jarVersion}" #mandatory
-displayName="Belly Button" #mandatory
-logoFile="logo.png" #optional
-credits="Ninni (assets), Coda (code)" #optional
-authors="Team Draco" #optional
-description='''This mod adds a belly button and lint.'''
+displayName="Dusted" #mandatory
+credits="Ninni" #optional
+authors="Coda" #optional
+description='''Dust bunnies, maids, and vacuums!'''
