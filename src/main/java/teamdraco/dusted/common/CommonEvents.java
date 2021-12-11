@@ -45,7 +45,7 @@ public class CommonEvents {
             ItemStack heldItem = livingEntity.getMainHandItem();
             if (EnchantmentHelper.getEnchantments(heldItem).containsKey(DustedEnchantments.LINT_ROLLER.get())) {
                 if (livingEntity.getRandom().nextDouble() < 0.035) {
-                    event.getEntityLiving().spawnAtLocation(DustedItems.LINT.get());
+                    event.getEntityLiving().spawnAtLocation(DustedItems.DUST.get());
                 }
             }
         }

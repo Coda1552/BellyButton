@@ -1,9 +1,9 @@
 {
 	"credit": "Made with Blockbench",
 	"textures": {
-		"0": "dusted:block/lint_block",
-		"1": "dusted:block/lint_carpet",
-		"particle": "dusted:block/lint_block"
+		"0": "dusted:block/dust_block",
+		"1": "dusted:block/dust_carpet",
+		"particle": "dusted:block/dust_block"
 	},
 	"elements": [
 		{

@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "dusted:item/lint"
+    "layer0": "dusted:item/dust"
   }
 }

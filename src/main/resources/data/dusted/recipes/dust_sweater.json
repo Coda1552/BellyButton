@@ -7,10 +7,10 @@
   ],
   "key": {
     "X": {
-      "item": "dusted:lint"
+      "item": "dusted:dust"
     }
   },
   "result": {
-    "item": "dusted:lint_sweater"
+    "item": "dusted:dust_sweater"
   }
 }

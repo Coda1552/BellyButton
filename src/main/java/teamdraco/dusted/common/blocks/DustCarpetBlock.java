@@ -12,10 +12,10 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-public class LintCarpetBlock extends Block {
+public class DustCarpetBlock extends Block {
     protected static final VoxelShape SHAPE = Block.box(0.0D, 0.0D, 0.0D, 16.0D, 1.0D, 16.0D);
 
-    public LintCarpetBlock(BlockBehaviour.Properties properties) {
+    public DustCarpetBlock(BlockBehaviour.Properties properties) {
         super(properties);
     }
 

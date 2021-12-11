@@ -1,7 +1,7 @@
 {
   "variants": {
     "": {
-      "model": "dusted:block/lint_carpet"
+      "model": "dusted:block/dust_carpet"
     }
   }
 }

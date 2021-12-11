@@ -10,7 +10,7 @@ import teamdraco.dusted.Dusted;
 import teamdraco.dusted.init.DustedItems;
 
 public class MaidArmorItem extends ArmorItem {
-    public static final ArmorMaterial MATERIAL = new DustedArmorMaterial(Dusted.MOD_ID + ":maid", 2, new int[]{1, 2, 3, 1}, 3, SoundEvents.ARMOR_EQUIP_LEATHER, 0.0F, () -> Ingredient.of(DustedItems.LINT.get()));
+    public static final ArmorMaterial MATERIAL = new DustedArmorMaterial(Dusted.MOD_ID + ":maid", 2, new int[]{1, 2, 3, 1}, 3, SoundEvents.ARMOR_EQUIP_LEATHER, 0.0F, () -> Ingredient.of(DustedItems.DUST.get()));
 
     public MaidArmorItem(ArmorMaterial materialIn, EquipmentSlot slot, Item.Properties builderIn) {
         super(MATERIAL, slot, new Item.Properties().tab(Dusted.GROUP));

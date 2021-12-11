@@ -1,7 +1,7 @@
 {
   "itemGroup.dusted": "Belly Button",
 
-  "item.dusted.lint": "Lint",
+  "item.dusted.dust": "Dust",
   "item.dusted.vacuum": "Vacuum Cleaner",
   "item.dusted.dust_bunny": "Dust Bunny",
   "item.dusted.itchy_sweater": "Itchy Sweater",
@@ -21,8 +21,8 @@
   "entity.dusted.evil_dust_bunny": "Evil Dust Bunny",
 
   "block.dusted.belly_button": "Belly Button",
-  "block.dusted.lint_block": "Block of Lint",
-  "block.dusted.lint_carpet": "Lint Carpet",
+  "block.dusted.dust_block": "Block of Dust",
+  "block.dusted.dust_carpet": "Dust Carpet",
 
   "effect.dusted.itchy": "Itchy",
 
@@ -39,8 +39,8 @@
   "item.minecraft.tipped_arrow.effect.itchy_long": "Arrow of Itchy",
   "item.minecraft.tipped_arrow.effect.itchy_strong": "Arrow of Itchy",
 
-  "enchantment.dusted.lint_roller": "Lint Roller",
-  "enchantment.dusted.lint_roller.desc": "Makes attack targets have a chance to drop lint when killed",
+  "enchantment.dusted.dust_roller": "Dust Roller",
+  "enchantment.dusted.dust_roller.desc": "Makes attack targets have a chance to drop dust when killed",
 
   "subtitle.dusted.vacuum": "Vacuum sucks"
 }

@@ -6,7 +6,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "dusted:lint_carpet"
+          "name": "dusted:dust_block"
         }
       ],
       "conditions": [
