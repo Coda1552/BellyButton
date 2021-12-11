@@ -32,8 +32,8 @@ import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import teamdraco.dusted.init.BellyButtonItems;
-import teamdraco.dusted.init.BellyButtonSounds;
+import teamdraco.dusted.init.DustedItems;
+import teamdraco.dusted.init.DustedSounds;
 
 import javax.annotation.Nullable;
 import java.util.Objects;
@@ -219,12 +219,12 @@ public class DustBunnyEntity extends PathfinderMob {
     @Override
     protected InteractionResult mobInteract(Player player, InteractionHand hand) {
         ItemStack itemstack = player.getItemInHand(hand);
-        if (itemstack.getItem() == BellyButtonItems.VACUUM.get()) {
-            player.playSound(BellyButtonSounds.VACUUM.get(), 0.4F, 1.0F);
+        if (itemstack.getItem() == DustedItems.VACUUM.get()) {
+            player.playSound(DustedSounds.VACUUM.get(), 0.4F, 1.0F);
             itemstack.hurtAndBreak(1, player, (p_220009_1_) -> {
                 p_220009_1_.broadcastBreakEvent(player.getUsedItemHand());
             });
-            ItemStack itemstack1 = new ItemStack(BellyButtonItems.DUST_BUNNY.get());
+            ItemStack itemstack1 = new ItemStack(DustedItems.DUST_BUNNY.get());
             this.setItemData(itemstack1);
             player.addItem(itemstack1);
             if (!player.getInventory().add(itemstack1)) {
@@ -394,7 +394,7 @@ public class DustBunnyEntity extends PathfinderMob {
 
     @Override
     public ItemStack getPickedResult(HitResult target) {
-        return new ItemStack(BellyButtonItems.DUSTY_BUNNY_SPAWN_EGG.get());
+        return new ItemStack(DustedItems.DUSTY_BUNNY_SPAWN_EGG.get());
     }
 
     public class JumpHelperController extends JumpControl {

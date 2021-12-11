@@ -9,7 +9,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 import java.util.function.Supplier;
 
-public class BellyButtonArmorMaterial implements ArmorMaterial {
+public class DustedArmorMaterial implements ArmorMaterial {
     private static final int[] MAX_DAMAGE_ARRAY = new int[]{15, 18, 17, 13};
     private final String name;
     private final int maxDamageFactor;
@@ -19,7 +19,7 @@ public class BellyButtonArmorMaterial implements ArmorMaterial {
     private final float toughness;
     private final Supplier<Ingredient> repairMaterial;
 
-    public BellyButtonArmorMaterial(String nameIn, int maxDamageFactorIn, int[] damageReductionAmountsIn, int enchantabilityIn, SoundEvent equipSoundIn, float toughness, Supplier<Ingredient> repairMaterialSupplier) {
+    public DustedArmorMaterial(String nameIn, int maxDamageFactorIn, int[] damageReductionAmountsIn, int enchantabilityIn, SoundEvent equipSoundIn, float toughness, Supplier<Ingredient> repairMaterialSupplier) {
         this.name = nameIn;
         this.maxDamageFactor = maxDamageFactorIn;
         this.damageReductionAmountArray = damageReductionAmountsIn;

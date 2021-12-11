@@ -8,13 +8,13 @@ import net.minecraft.client.renderer.entity.layers.CustomHeadLayer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import teamdraco.dusted.BellyButton;
+import teamdraco.dusted.Dusted;
 import teamdraco.dusted.common.entities.MaidEntity;
 
 @OnlyIn(Dist.CLIENT)
 public class MaidRenderer extends IllagerRenderer<MaidEntity> {
-    private static final ResourceLocation TEXTURE = new ResourceLocation(BellyButton.MOD_ID, "textures/entity/maid.png");
-    public static final ModelLayerLocation MAID = new ModelLayerLocation(new ResourceLocation(BellyButton.MOD_ID, "maid"), "main");
+    private static final ResourceLocation TEXTURE = new ResourceLocation(Dusted.MOD_ID, "textures/entity/maid.png");
+    public static final ModelLayerLocation MAID = new ModelLayerLocation(new ResourceLocation(Dusted.MOD_ID, "maid"), "main");
 
     public MaidRenderer(EntityRendererProvider.Context manager) {
         super(manager, new IllagerModel<>(manager.bakeLayer(MAID)), 0.5F);

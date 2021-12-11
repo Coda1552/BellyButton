@@ -31,8 +31,8 @@ import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.phys.HitResult;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import teamdraco.dusted.init.BellyButtonEntities;
-import teamdraco.dusted.init.BellyButtonItems;
+import teamdraco.dusted.init.DustedEntities;
+import teamdraco.dusted.init.DustedItems;
 
 import javax.annotation.Nullable;
 import java.util.EnumSet;
@@ -126,13 +126,13 @@ public class MaidEntity extends SpellcasterIllager {
     @Nullable
     @Override
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, MobSpawnType reason, @Nullable SpawnGroupData spawnDataIn, @Nullable CompoundTag dataTag) {
-        this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(BellyButtonItems.VACUUM.get()));
+        this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(DustedItems.VACUUM.get()));
         return spawnDataIn;
     }
 
     @Override
     protected void populateDefaultEquipmentSlots(DifficultyInstance difficulty) {
-        this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(BellyButtonItems.VACUUM.get()));
+        this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(DustedItems.VACUUM.get()));
     }
 
     public void readAdditionalSaveData(CompoundTag compound) {
@@ -149,7 +149,7 @@ public class MaidEntity extends SpellcasterIllager {
 
     @Override
     public ItemStack getPickedResult(HitResult target) {
-        return new ItemStack(BellyButtonItems.MAID_SPAWN_EGG.get());
+        return new ItemStack(DustedItems.MAID_SPAWN_EGG.get());
     }
 
     @Override
@@ -286,7 +286,7 @@ public class MaidEntity extends SpellcasterIllager {
 
             for (int i = 0; i < 3; ++i) {
                 BlockPos blockpos = MaidEntity.this.blockPosition().offset(-2 + MaidEntity.this.random.nextInt(5), 1, -2 + MaidEntity.this.random.nextInt(5));
-                EvilDustBunnyEntity bunny = BellyButtonEntities.EVIL_DUST_BUNNY.get().create(MaidEntity.this.level);
+                EvilDustBunnyEntity bunny = DustedEntities.EVIL_DUST_BUNNY.get().create(MaidEntity.this.level);
                 bunny.moveTo(blockpos, 0.0F, 0.0F);
                 bunny.finalizeSpawn(serverworld, MaidEntity.this.level.getCurrentDifficultyAt(blockpos), MobSpawnType.MOB_SUMMONED, (SpawnGroupData) null, (CompoundTag) null);
                 serverworld.addFreshEntityWithPassengers(bunny);

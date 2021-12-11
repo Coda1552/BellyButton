@@ -8,14 +8,14 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import teamdraco.dusted.BellyButton;
+import teamdraco.dusted.Dusted;
 import teamdraco.dusted.client.model.DustBunnyModel;
 import teamdraco.dusted.common.entities.EvilDustBunnyEntity;
 
 @OnlyIn(Dist.CLIENT)
 public class EvilDustBunnyRenderer extends MobRenderer<EvilDustBunnyEntity, DustBunnyModel<EvilDustBunnyEntity>> {
-    private static final ResourceLocation TEXTURE = new ResourceLocation(BellyButton.MOD_ID, "textures/entity/evil_dust_bunny.png");
-    public static final ModelLayerLocation DUST_BUNNY = new ModelLayerLocation(new ResourceLocation(BellyButton.MOD_ID, "dust_bunny"), "main");
+    private static final ResourceLocation TEXTURE = new ResourceLocation(Dusted.MOD_ID, "textures/entity/evil_dust_bunny.png");
+    public static final ModelLayerLocation DUST_BUNNY = new ModelLayerLocation(new ResourceLocation(Dusted.MOD_ID, "dust_bunny"), "main");
 
     public EvilDustBunnyRenderer(EntityRendererProvider.Context manager) {
         super(manager, new DustBunnyModel<>(manager.bakeLayer(DUST_BUNNY)), 0.35F);

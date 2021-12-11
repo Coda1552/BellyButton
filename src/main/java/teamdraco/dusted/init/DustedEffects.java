@@ -13,12 +13,12 @@ import net.minecraftforge.common.brewing.BrewingRecipeRegistry;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
-import teamdraco.dusted.BellyButton;
+import teamdraco.dusted.Dusted;
 import teamdraco.dusted.common.effects.ItchyEffect;
 
-public class BellyButtonEffects {
-    public static final DeferredRegister<MobEffect> EFFECTS = DeferredRegister.create(ForgeRegistries.MOB_EFFECTS, BellyButton.MOD_ID);
-    public static final DeferredRegister<Potion> POTIONS = DeferredRegister.create(ForgeRegistries.POTIONS, BellyButton.MOD_ID);
+public class DustedEffects {
+    public static final DeferredRegister<MobEffect> EFFECTS = DeferredRegister.create(ForgeRegistries.MOB_EFFECTS, Dusted.MOD_ID);
+    public static final DeferredRegister<Potion> POTIONS = DeferredRegister.create(ForgeRegistries.POTIONS, Dusted.MOD_ID);
 
     public static final RegistryObject<MobEffect> ITCHY = EFFECTS.register("itchy", () -> new ItchyEffect(MobEffectCategory.HARMFUL, 0x98928a));
 
@@ -27,7 +27,7 @@ public class BellyButtonEffects {
     public static final RegistryObject<Potion> ITCHY_LONG = POTIONS.register("itchy_long", () -> new Potion(new MobEffectInstance(ITCHY.get(), 900)));
 
     public static void brewingRecipes() {
-        BrewingRecipeRegistry.addRecipe(Ingredient.of(PotionUtils.setPotion(new ItemStack(Items.POTION), Potions.AWKWARD)), Ingredient.of(BellyButtonItems.LINT.get()), PotionUtils.setPotion(new ItemStack(Items.POTION), ITCHY_NORMAL.get()));
+        BrewingRecipeRegistry.addRecipe(Ingredient.of(PotionUtils.setPotion(new ItemStack(Items.POTION), Potions.AWKWARD)), Ingredient.of(DustedItems.LINT.get()), PotionUtils.setPotion(new ItemStack(Items.POTION), ITCHY_NORMAL.get()));
         BrewingRecipeRegistry.addRecipe(Ingredient.of(PotionUtils.setPotion(new ItemStack(Items.POTION), ITCHY_NORMAL.get())), Ingredient.of(Items.GLOWSTONE_DUST), PotionUtils.setPotion(new ItemStack(Items.POTION), ITCHY_STRONG.get()));
         BrewingRecipeRegistry.addRecipe(Ingredient.of(PotionUtils.setPotion(new ItemStack(Items.POTION), ITCHY_NORMAL.get())), Ingredient.of(Items.REDSTONE), PotionUtils.setPotion(new ItemStack(Items.POTION), ITCHY_LONG.get()));
     }
