@@ -33,6 +33,7 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import teamdraco.bellybutton.init.BellyButtonEntities;
 import teamdraco.bellybutton.init.BellyButtonItems;
+import teamdraco.bellybutton.init.BellyButtonSounds;
 
 import javax.annotation.Nullable;
 import java.util.EnumSet;
@@ -202,8 +203,9 @@ public class MaidEntity extends SpellcasterIllager {
 
     protected void pickUpItem(ItemEntity itemEntity) {
         ItemStack itemstack = itemEntity.getItem();
-        if (this.canHoldItem(itemstack)) {
 
+        if (this.canHoldItem(itemstack)) {
+            this.playSound(BellyButtonSounds.VACUUM.get(), 1.0F, 1.0F);
             this.onItemPickup(itemEntity);
             this.setItemSlot(EquipmentSlot.OFFHAND, itemstack.split(itemstack.getCount()));
             this.handDropChances[EquipmentSlot.OFFHAND.getIndex()] = 2.0F;
