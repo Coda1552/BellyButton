@@ -1,7 +1,7 @@
 {
   "variants": {
     "": {
-      "model": "dusted:block/dust_block"
+      "model": "bellybutton:block/dust_block"
     }
   }
 }

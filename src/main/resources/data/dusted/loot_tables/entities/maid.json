@@ -6,7 +6,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "dusted:maid_hairband"
+          "name": "bellybutton:maid_hairband"
         }
       ],
       "conditions": [
@@ -25,7 +25,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "dusted:maid_dress"
+          "name": "bellybutton:maid_dress"
         }
       ],
       "conditions": [
@@ -44,7 +44,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "dusted:maid_skirt"
+          "name": "bellybutton:maid_skirt"
         }
       ],
       "conditions": [
@@ -63,7 +63,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "dusted:maid_shoes"
+          "name": "bellybutton:maid_shoes"
         }
       ],
       "conditions": [

@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "dusted:item/dust_bunny"
+    "layer0": "bellybutton:item/dust_bunny"
   }
 }

@@ -1,30 +1,30 @@
 {
-  "itemGroup.dusted": "Belly Button",
+  "itemGroup.bellybutton": "Belly Button",
 
-  "item.dusted.dust": "Dust",
-  "item.dusted.vacuum": "Vacuum Cleaner",
-  "item.dusted.dust_bunny": "Dust Bunny",
-  "item.dusted.itchy_sweater": "Itchy Sweater",
-  "item.dusted.maid_hairband": "Maid Hairband",
-  "item.dusted.maid_dress": "Maid Dress",
-  "item.dusted.maid_skirt": "Maid Skirt",
-  "item.dusted.maid_shoes": "Maid Shoes",
-  "item.dusted.music_disc_belly_boppin": "Music Disc",
-  "item.dusted.music_disc_belly_boppin.desc": "Mr. Esuoh - Belly Boppin'",
+  "item.bellybutton.dust": "Dust",
+  "item.bellybutton.vacuum": "Vacuum Cleaner",
+  "item.bellybutton.dust_bunny": "Dust Bunny",
+  "item.bellybutton.itchy_sweater": "Itchy Sweater",
+  "item.bellybutton.maid_hairband": "Maid Hairband",
+  "item.bellybutton.maid_dress": "Maid Dress",
+  "item.bellybutton.maid_skirt": "Maid Skirt",
+  "item.bellybutton.maid_shoes": "Maid Shoes",
+  "item.bellybutton.music_disc_belly_boppin": "Music Disc",
+  "item.bellybutton.music_disc_belly_boppin.desc": "Mr. Esuoh - Belly Boppin'",
 
-  "item.dusted.dust_bunny_spawn_egg": "Dust Bunny Spawn Egg",
-  "item.dusted.maid_spawn_egg": "Maid Spawn Egg",
-  "item.dusted.evil_dust_bunny_spawn_egg": "Evil Dust Bunny Spawn Egg",
+  "item.bellybutton.dust_bunny_spawn_egg": "Dust Bunny Spawn Egg",
+  "item.bellybutton.maid_spawn_egg": "Maid Spawn Egg",
+  "item.bellybutton.evil_dust_bunny_spawn_egg": "Evil Dust Bunny Spawn Egg",
 
-  "entity.dusted.dust_bunny": "Dust Bunny",
-  "entity.dusted.maid": "Maid",
-  "entity.dusted.evil_dust_bunny": "Evil Dust Bunny",
+  "entity.bellybutton.dust_bunny": "Dust Bunny",
+  "entity.bellybutton.maid": "Maid",
+  "entity.bellybutton.evil_dust_bunny": "Evil Dust Bunny",
 
-  "block.dusted.belly_button": "Belly Button",
-  "block.dusted.dust_block": "Block of Dust",
-  "block.dusted.dust_carpet": "Dust Carpet",
+  "block.bellybutton.belly_button": "Belly Button",
+  "block.bellybutton.dust_block": "Block of Dust",
+  "block.bellybutton.dust_carpet": "Dust Carpet",
 
-  "effect.dusted.itchy": "Itchy",
+  "effect.bellybutton.itchy": "Itchy",
 
   "item.minecraft.potion.effect.itchy": "Potion of Itchy",
   "item.minecraft.potion.effect.itchy_long": "Potion of Itchy",
@@ -39,8 +39,8 @@
   "item.minecraft.tipped_arrow.effect.itchy_long": "Arrow of Itchy",
   "item.minecraft.tipped_arrow.effect.itchy_strong": "Arrow of Itchy",
 
-  "enchantment.dusted.dust_roller": "Dust Roller",
-  "enchantment.dusted.dust_roller.desc": "Makes attack targets have a chance to drop dust when killed",
+  "enchantment.bellybutton.dust_roller": "Dust Roller",
+  "enchantment.bellybutton.dust_roller.desc": "Makes attack targets have a chance to drop dust when killed",
 
-  "subtitle.dusted.vacuum": "Vacuum sucks"
+  "subtitle.bellybutton.vacuum": "Vacuum sucks"
 }

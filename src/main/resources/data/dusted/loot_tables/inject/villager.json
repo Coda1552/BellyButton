@@ -6,7 +6,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "dusted:belly_button"
+          "name": "bellybutton:belly_button"
         }
       ],
       "conditions": [

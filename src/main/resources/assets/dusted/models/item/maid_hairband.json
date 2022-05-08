@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "dusted:item/maid_hairband"
+    "layer0": "bellybutton:item/maid_hairband"
   }
 }

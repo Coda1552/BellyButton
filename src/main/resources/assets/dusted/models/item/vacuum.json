@@ -1,12 +1,12 @@
 {
 	"credit": "Made with Blockbench",
 	"textures": {
-		"0": "dusted:item/vacuum/vacuum_1",
-		"1": "dusted:item/vacuum/vacuum_2",
-		"2": "dusted:item/vacuum/vacuum_3",
-		"3": "dusted:item/vacuum/vacuum_4",
-		"4": "dusted:item/vacuum/vacuum_5",
-		"particle": "dusted:item/vacuum/vacuum_1"
+		"0": "bellybutton:item/vacuum/vacuum_1",
+		"1": "bellybutton:item/vacuum/vacuum_2",
+		"2": "bellybutton:item/vacuum/vacuum_3",
+		"3": "bellybutton:item/vacuum/vacuum_4",
+		"4": "bellybutton:item/vacuum/vacuum_5",
+		"particle": "bellybutton:item/vacuum/vacuum_1"
 	},
 	"elements": [
 		{

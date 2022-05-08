@@ -1,10 +1,10 @@
 modLoader="javafml" #mandatory
-loaderVersion="[39,)" #mandatory This is typically bumped every Minecraft version by Forge. See our download page for lists of versions.
+loaderVersion="[40,)" #mandatory This is typically bumped every Minecraft version by Forge. See our download page for lists of versions.
 license="All rights reserved"
 [[mods]] #mandatory
-modId="dusted" #mandatory
+modId="bellybutton" #mandatory
 version="${file.jarVersion}" #mandatory
-displayName="Dusted" #mandatory
+displayName="Belly Button" #mandatory
 credits="Ninni" #optional
 authors="Coda" #optional
 description='''Dust bunnies, maids, and vacuums!'''

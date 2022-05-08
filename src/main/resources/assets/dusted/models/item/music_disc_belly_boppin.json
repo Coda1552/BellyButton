@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "dusted:item/music_disc_belly_boppin"
+    "layer0": "bellybutton:item/music_disc_belly_boppin"
   }
 }

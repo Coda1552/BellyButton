@@ -6,11 +6,11 @@
   ],
   "key": {
     "#": {
-      "item": "dusted:dust_block"
+      "item": "bellybutton:dust_block"
     }
   },
   "result": {
-    "item": "dusted:dust_carpet",
+    "item": "bellybutton:dust_carpet",
     "count": 3
   }
 }

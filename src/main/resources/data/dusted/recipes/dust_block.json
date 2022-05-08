@@ -6,10 +6,10 @@
   ],
   "key": {
     "#": {
-      "item": "dusted:dust"
+      "item": "bellybutton:dust"
     }
   },
   "result": {
-    "item": "dusted:dust_block"
+    "item": "bellybutton:dust_block"
   }
 }
