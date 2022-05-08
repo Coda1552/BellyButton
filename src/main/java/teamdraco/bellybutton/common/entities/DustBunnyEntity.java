@@ -19,6 +19,7 @@ import net.minecraft.world.entity.ai.control.JumpControl;
 import net.minecraft.world.entity.ai.control.MoveControl;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.animal.Cat;
+import net.minecraft.world.entity.monster.Slime;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -51,7 +52,7 @@ public class DustBunnyEntity extends PathfinderMob {
 
     public DustBunnyEntity(EntityType<? extends DustBunnyEntity> type, Level worldIn) {
         super(type, worldIn);
-        this.jumpControl = new DustBunnyEntity.JumpHelperController(this);
+        this.jumpControl = new JumpHelperController(this);
         this.moveControl = new DustBunnyEntity.MoveHelperController(this);
         this.setMovementSpeed(0.0D);
     }
@@ -158,12 +159,12 @@ public class DustBunnyEntity extends PathfinderMob {
     @Override
     public void remove(RemovalReason p_146834_) {
         int i = this.getSize();
-        if (!this.level.isClientSide && i > 1 && this.isDeadOrDying() && !this.dead) {
+        if (!this.level.isClientSide && i > 1 && this.isDeadOrDying()) {
             Component itextcomponent = this.getCustomName();
             boolean flag = this.isNoAi();
             float f = (float)i / 4.0F;
             int j = i / 2;
-            int k = 2;
+            int k = 2 + random.nextInt(3);
 
             for(int l = 0; l < k; ++l) {
                 float f1 = ((float)(l % 2) - 0.5F) * f;
@@ -182,7 +183,7 @@ public class DustBunnyEntity extends PathfinderMob {
             }
         }
 
-    super.remove(p_146834_);
+        super.remove(p_146834_);
     }
 
     @Nullable
@@ -254,6 +255,7 @@ public class DustBunnyEntity extends PathfinderMob {
         }
     }
 
+
     protected void jumpFromGround() {
         super.jumpFromGround();
         double d0 = this.moveControl.getSpeedModifier();
@@ -311,11 +313,6 @@ public class DustBunnyEntity extends PathfinderMob {
             DustBunnyEntity.JumpHelperController jumphelpercontroller = (DustBunnyEntity.JumpHelperController)this.jumpControl;
             if (!jumphelpercontroller.getIsJumping()) {
                 if (this.moveControl.hasWanted() && this.currentMoveTypeDuration == 0) {
-                    Path path = this.navigation.getPath();
-                    Vec3 vector3d = new Vec3(this.moveControl.getWantedX(), this.moveControl.getWantedY(), this.moveControl.getWantedZ());
-                    if (path != null && !path.isDone()) {
-                        vector3d = path.getNextEntityPos(this);
-                    }
 
                     this.startJumping();
                 }
@@ -397,7 +394,7 @@ public class DustBunnyEntity extends PathfinderMob {
         return new ItemStack(BellyButtonItems.DUSTY_BUNNY_SPAWN_EGG.get());
     }
 
-    public class JumpHelperController extends JumpControl {
+    public static class JumpHelperController extends JumpControl {
         private final DustBunnyEntity bunny;
         private boolean canJump;
 

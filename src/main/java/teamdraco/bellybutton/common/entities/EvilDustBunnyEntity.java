@@ -17,7 +17,7 @@ public class EvilDustBunnyEntity extends DustBunnyEntity {
 
     public EvilDustBunnyEntity(EntityType<? extends DustBunnyEntity> type, Level worldIn) {
         super(type, worldIn);
-        this.jumpControl = new DustBunnyEntity.JumpHelperController(this);
+        this.jumpControl = new JumpHelperController(this);
         this.moveControl = new DustBunnyEntity.MoveHelperController(this);
         this.setMovementSpeed(0.0D);
     }
