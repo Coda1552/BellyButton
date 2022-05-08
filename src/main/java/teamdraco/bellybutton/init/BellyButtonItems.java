@@ -24,6 +24,7 @@ public class BellyButtonItems {
     public static final RegistryObject<Item> MAID_SKIRT = REGISTER.register("maid_skirt", () -> new MaidArmorItem(ArmorMaterials.LEATHER, EquipmentSlot.LEGS, new Item.Properties().tab(BellyButton.GROUP).stacksTo(1)));
     public static final RegistryObject<Item> MAID_SHOES = REGISTER.register("maid_shoes", () -> new MaidArmorItem(ArmorMaterials.LEATHER, EquipmentSlot.FEET, new Item.Properties().tab(BellyButton.GROUP).stacksTo(1)));
 
+    public static final RegistryObject<Item> BELLY_BUTTON = REGISTER.register("belly_button", () -> new BlockItem(BellyButtonBlocks.BELLY_BUTTON.get(), new Item.Properties().tab(BellyButton.GROUP)));
     public static final RegistryObject<Item> LINT_BLOCK = REGISTER.register("lint_block", () -> new BlockItem(BellyButtonBlocks.LINT_BLOCK.get(), new Item.Properties().tab(BellyButton.GROUP)));
     public static final RegistryObject<Item> LINT_CARPET = REGISTER.register("lint_carpet", () -> new BlockItem(BellyButtonBlocks.LINT_CARPET.get(), new Item.Properties().tab(BellyButton.GROUP)));
 
