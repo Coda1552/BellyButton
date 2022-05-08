@@ -7,10 +7,10 @@
   ],
   "key": {
     "X": {
-      "item": "bellybutton:dust"
+      "item": "bellybutton:lint"
     }
   },
   "result": {
-    "item": "bellybutton:dust_sweater"
+    "item": "bellybutton:itchy_sweater"
   }
 }

@@ -31,6 +31,6 @@ public class ClientEvents {
         ForgeHooksClient.registerLayerDefinition(EvilDustBunnyRenderer.DUST_BUNNY, DustBunnyModel::createLayerDefinition);
         ForgeHooksClient.registerLayerDefinition(DustBunnyRenderer.DUST_BUNNY, DustBunnyModel::createLayerDefinition);
 
-        ItemBlockRenderTypes.setRenderLayer(BellyButtonBlocks.DUST_CARPET.get(), RenderType.cutout());
+        ItemBlockRenderTypes.setRenderLayer(BellyButtonBlocks.LINT_CARPET.get(), RenderType.cutout());
     }
 }

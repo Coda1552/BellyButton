@@ -27,7 +27,7 @@ public class BellyButtonEffects {
     public static final RegistryObject<Potion> ITCHY_LONG = POTIONS.register("itchy_long", () -> new Potion(new MobEffectInstance(ITCHY.get(), 900)));
 
     public static void brewingRecipes() {
-        BrewingRecipeRegistry.addRecipe(Ingredient.of(PotionUtils.setPotion(new ItemStack(Items.POTION), Potions.AWKWARD)), Ingredient.of(BellyButtonItems.DUST.get()), PotionUtils.setPotion(new ItemStack(Items.POTION), ITCHY_NORMAL.get()));
+        BrewingRecipeRegistry.addRecipe(Ingredient.of(PotionUtils.setPotion(new ItemStack(Items.POTION), Potions.AWKWARD)), Ingredient.of(BellyButtonItems.LINT.get()), PotionUtils.setPotion(new ItemStack(Items.POTION), ITCHY_NORMAL.get()));
         BrewingRecipeRegistry.addRecipe(Ingredient.of(PotionUtils.setPotion(new ItemStack(Items.POTION), ITCHY_NORMAL.get())), Ingredient.of(Items.GLOWSTONE_DUST), PotionUtils.setPotion(new ItemStack(Items.POTION), ITCHY_STRONG.get()));
         BrewingRecipeRegistry.addRecipe(Ingredient.of(PotionUtils.setPotion(new ItemStack(Items.POTION), ITCHY_NORMAL.get())), Ingredient.of(Items.REDSTONE), PotionUtils.setPotion(new ItemStack(Items.POTION), ITCHY_LONG.get()));
     }
