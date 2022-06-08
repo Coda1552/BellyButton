@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/cube_all",
   "textures": {
-    "all": "bellybutton:block/dust_block"
+    "all": "bellybutton:block/lint_block"
   }
 }
