@@ -19,7 +19,6 @@ import net.minecraft.world.entity.ai.control.JumpControl;
 import net.minecraft.world.entity.ai.control.MoveControl;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.animal.Cat;
-import net.minecraft.world.entity.monster.Slime;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -33,8 +32,8 @@ import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import teamdraco.bellybutton.init.BellyButtonItems;
-import teamdraco.bellybutton.init.BellyButtonSounds;
+import teamdraco.bellybutton.init.BBItems;
+import teamdraco.bellybutton.init.BBSounds;
 
 import javax.annotation.Nullable;
 import java.util.Objects;
@@ -220,12 +219,12 @@ public class DustBunnyEntity extends PathfinderMob {
     @Override
     protected InteractionResult mobInteract(Player player, InteractionHand hand) {
         ItemStack itemstack = player.getItemInHand(hand);
-        if (itemstack.getItem() == BellyButtonItems.VACUUM.get()) {
-            player.playSound(BellyButtonSounds.VACUUM.get(), 0.4F, 1.0F);
+        if (itemstack.getItem() == BBItems.VACUUM.get()) {
+            player.playSound(BBSounds.VACUUM.get(), 0.4F, 1.0F);
             itemstack.hurtAndBreak(1, player, (p_220009_1_) -> {
                 p_220009_1_.broadcastBreakEvent(player.getUsedItemHand());
             });
-            ItemStack itemstack1 = new ItemStack(BellyButtonItems.DUST_BUNNY.get());
+            ItemStack itemstack1 = new ItemStack(BBItems.DUST_BUNNY.get());
             this.setItemData(itemstack1);
             player.addItem(itemstack1);
             if (!player.getInventory().add(itemstack1)) {
@@ -391,7 +390,7 @@ public class DustBunnyEntity extends PathfinderMob {
 
     @Override
     public ItemStack getPickedResult(HitResult target) {
-        return new ItemStack(BellyButtonItems.DUSTY_BUNNY_SPAWN_EGG.get());
+        return new ItemStack(BBItems.DUSTY_BUNNY_SPAWN_EGG.get());
     }
 
     public static class JumpHelperController extends JumpControl {

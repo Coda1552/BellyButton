@@ -15,22 +15,22 @@ import teamdraco.bellybutton.client.model.DustBunnyModel;
 import teamdraco.bellybutton.client.render.DustBunnyRenderer;
 import teamdraco.bellybutton.client.render.EvilDustBunnyRenderer;
 import teamdraco.bellybutton.client.render.MaidRenderer;
-import teamdraco.bellybutton.init.BellyButtonBlocks;
-import teamdraco.bellybutton.init.BellyButtonEntities;
+import teamdraco.bellybutton.init.BBBlocks;
+import teamdraco.bellybutton.init.BBEntities;
 
 @OnlyIn(Dist.CLIENT)
 @Mod.EventBusSubscriber(modid = BellyButton.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
 public class ClientEvents {
     @SubscribeEvent
     public static void clientSetup(FMLClientSetupEvent event) {
-        EntityRenderers.register(BellyButtonEntities.DUST_BUNNY.get(), DustBunnyRenderer::new);
-        EntityRenderers.register(BellyButtonEntities.MAID.get(), MaidRenderer::new);
-        EntityRenderers.register(BellyButtonEntities.EVIL_DUST_BUNNY.get(), EvilDustBunnyRenderer::new);
+        EntityRenderers.register(BBEntities.DUST_BUNNY.get(), DustBunnyRenderer::new);
+        EntityRenderers.register(BBEntities.MAID.get(), MaidRenderer::new);
+        EntityRenderers.register(BBEntities.EVIL_DUST_BUNNY.get(), EvilDustBunnyRenderer::new);
 
         ForgeHooksClient.registerLayerDefinition(MaidRenderer.MAID, IllagerModel::createBodyLayer);
         ForgeHooksClient.registerLayerDefinition(EvilDustBunnyRenderer.DUST_BUNNY, DustBunnyModel::createLayerDefinition);
         ForgeHooksClient.registerLayerDefinition(DustBunnyRenderer.DUST_BUNNY, DustBunnyModel::createLayerDefinition);
 
-        ItemBlockRenderTypes.setRenderLayer(BellyButtonBlocks.LINT_CARPET.get(), RenderType.cutout());
+        ItemBlockRenderTypes.setRenderLayer(BBBlocks.LINT_CARPET.get(), RenderType.cutout());
     }
 }

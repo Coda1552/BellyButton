@@ -11,7 +11,7 @@ import teamdraco.bellybutton.common.entities.MaidEntity;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 
-public class BellyButtonEntities {
+public class BBEntities {
     public static final DeferredRegister<EntityType<?>> REGISTER = DeferredRegister.create(ForgeRegistries.ENTITIES, BellyButton.MOD_ID);
 
     public static final RegistryObject<EntityType<DustBunnyEntity>> DUST_BUNNY = create("dust_bunny", EntityType.Builder.of(DustBunnyEntity::new, MobCategory.CREATURE).sized(1.0f, 1.0f));

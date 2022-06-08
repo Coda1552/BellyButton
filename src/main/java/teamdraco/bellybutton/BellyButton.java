@@ -1,6 +1,7 @@
 package teamdraco.bellybutton;
 
 import net.minecraft.world.entity.SpawnPlacements;
+import net.minecraft.world.entity.raid.Raid;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.levelgen.Heightmap;
@@ -25,31 +26,35 @@ public class BellyButton {
         bus.addListener(this::registerCommon);
         bus.addListener(this::registerEntityAttributes);
 
-        BellyButtonEnchantments.REGISTER.register(bus);
-        BellyButtonSounds.REGISTER.register(bus);
-        BellyButtonEffects.POTIONS.register(bus);
-        BellyButtonEffects.EFFECTS.register(bus);
-        BellyButtonItems.REGISTER.register(bus);
-        BellyButtonBlocks.REGISTER.register(bus);
-        BellyButtonEntities.REGISTER.register(bus);
+        BBEnchantments.REGISTER.register(bus);
+        BBSounds.REGISTER.register(bus);
+        BBEffects.POTIONS.register(bus);
+        BBEffects.EFFECTS.register(bus);
+        BBItems.REGISTER.register(bus);
+        BBBlocks.REGISTER.register(bus);
+        BBEntities.REGISTER.register(bus);
     }
 
     private void registerCommon(FMLCommonSetupEvent event) {
-        SpawnPlacements.register(BellyButtonEntities.DUST_BUNNY.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, DustBunnyEntity::canBunnySpawn);
-        SpawnPlacements.register(BellyButtonEntities.MAID.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, MaidEntity::canMaidSpawn);
-        BellyButtonEffects.brewingRecipes();
+        SpawnPlacements.register(BBEntities.DUST_BUNNY.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, DustBunnyEntity::canBunnySpawn);
+        SpawnPlacements.register(BBEntities.MAID.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, MaidEntity::canMaidSpawn);
+        BBEffects.brewingRecipes();
+
+        event.enqueueWork(() -> {
+            Raid.RaiderType.create("maid", BBEntities.MAID.get(), new int[] {0, 1, 2, 2, 1, 2, 2, 3 });
+        });
     }
 
     private void registerEntityAttributes(EntityAttributeCreationEvent event) {
-        event.put(BellyButtonEntities.DUST_BUNNY.get(), DustBunnyEntity.createAttributes().build());
-        event.put(BellyButtonEntities.MAID.get(), MaidEntity.createAttributes().build());
-        event.put(BellyButtonEntities.EVIL_DUST_BUNNY.get(), EvilDustBunnyEntity.createAttributes().build());
+        event.put(BBEntities.DUST_BUNNY.get(), DustBunnyEntity.createAttributes().build());
+        event.put(BBEntities.MAID.get(), MaidEntity.createAttributes().build());
+        event.put(BBEntities.EVIL_DUST_BUNNY.get(), EvilDustBunnyEntity.createAttributes().build());
     }
 
     public final static CreativeModeTab GROUP = new CreativeModeTab(MOD_ID) {
         @Override
         public ItemStack makeIcon() {
-            return new ItemStack(BellyButtonItems.DUST_BUNNY.get());
+            return new ItemStack(BBItems.DUST_BUNNY.get());
         }
     };
 }

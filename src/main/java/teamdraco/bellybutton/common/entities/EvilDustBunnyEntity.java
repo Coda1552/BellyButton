@@ -11,7 +11,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.HitResult;
-import teamdraco.bellybutton.init.BellyButtonItems;
+import teamdraco.bellybutton.init.BBItems;
 
 public class EvilDustBunnyEntity extends DustBunnyEntity {
 
@@ -32,7 +32,7 @@ public class EvilDustBunnyEntity extends DustBunnyEntity {
 
     @Override
     public ItemStack getPickedResult(HitResult target) {
-        return new ItemStack(BellyButtonItems.EVIL_DUSTY_BUNNY_SPAWN_EGG.get());
+        return new ItemStack(BBItems.EVIL_DUSTY_BUNNY_SPAWN_EGG.get());
     }
 
     @Override

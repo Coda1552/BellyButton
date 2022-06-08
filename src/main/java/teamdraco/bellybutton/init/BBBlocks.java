@@ -11,7 +11,7 @@ import teamdraco.bellybutton.BellyButton;
 import teamdraco.bellybutton.common.blocks.BellyButtonBlock;
 import teamdraco.bellybutton.common.blocks.LintCarpetBlock;
 
-public class BellyButtonBlocks {
+public class BBBlocks {
     public static final DeferredRegister<Block> REGISTER = DeferredRegister.create(ForgeRegistries.BLOCKS, BellyButton.MOD_ID);
 
     public static final RegistryObject<Block> BELLY_BUTTON = REGISTER.register("belly_button", () -> new BellyButtonBlock(BlockBehaviour.Properties.of(Material.DECORATION).strength(0.5f).sound(SoundType.SLIME_BLOCK)));

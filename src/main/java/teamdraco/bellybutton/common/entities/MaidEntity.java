@@ -31,9 +31,9 @@ import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.phys.HitResult;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import teamdraco.bellybutton.init.BellyButtonEntities;
-import teamdraco.bellybutton.init.BellyButtonItems;
-import teamdraco.bellybutton.init.BellyButtonSounds;
+import teamdraco.bellybutton.init.BBEntities;
+import teamdraco.bellybutton.init.BBItems;
+import teamdraco.bellybutton.init.BBSounds;
 
 import javax.annotation.Nullable;
 import java.util.EnumSet;
@@ -127,13 +127,13 @@ public class MaidEntity extends SpellcasterIllager {
     @Nullable
     @Override
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, MobSpawnType reason, @Nullable SpawnGroupData spawnDataIn, @Nullable CompoundTag dataTag) {
-        this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(BellyButtonItems.VACUUM.get()));
+        this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(BBItems.VACUUM.get()));
         return spawnDataIn;
     }
 
     @Override
     protected void populateDefaultEquipmentSlots(DifficultyInstance difficulty) {
-        this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(BellyButtonItems.VACUUM.get()));
+        this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(BBItems.VACUUM.get()));
     }
 
     public void readAdditionalSaveData(CompoundTag compound) {
@@ -150,7 +150,7 @@ public class MaidEntity extends SpellcasterIllager {
 
     @Override
     public ItemStack getPickedResult(HitResult target) {
-        return new ItemStack(BellyButtonItems.MAID_SPAWN_EGG.get());
+        return new ItemStack(BBItems.MAID_SPAWN_EGG.get());
     }
 
     @Override
@@ -205,7 +205,7 @@ public class MaidEntity extends SpellcasterIllager {
         ItemStack itemstack = itemEntity.getItem();
 
         if (this.canHoldItem(itemstack)) {
-            this.playSound(BellyButtonSounds.VACUUM.get(), 1.0F, 1.0F);
+            this.playSound(BBSounds.VACUUM.get(), 1.0F, 1.0F);
             this.onItemPickup(itemEntity);
             this.setItemSlot(EquipmentSlot.OFFHAND, itemstack.split(itemstack.getCount()));
             this.handDropChances[EquipmentSlot.OFFHAND.getIndex()] = 2.0F;
@@ -288,7 +288,7 @@ public class MaidEntity extends SpellcasterIllager {
 
             for (int i = 0; i < 3; ++i) {
                 BlockPos blockpos = MaidEntity.this.blockPosition().offset(-2 + MaidEntity.this.random.nextInt(5), 1, -2 + MaidEntity.this.random.nextInt(5));
-                EvilDustBunnyEntity bunny = BellyButtonEntities.EVIL_DUST_BUNNY.get().create(MaidEntity.this.level);
+                EvilDustBunnyEntity bunny = BBEntities.EVIL_DUST_BUNNY.get().create(MaidEntity.this.level);
                 bunny.moveTo(blockpos, 0.0F, 0.0F);
                 bunny.finalizeSpawn(serverworld, MaidEntity.this.level.getCurrentDifficultyAt(blockpos), MobSpawnType.MOB_SUMMONED, (SpawnGroupData) null, (CompoundTag) null);
                 serverworld.addFreshEntityWithPassengers(bunny);

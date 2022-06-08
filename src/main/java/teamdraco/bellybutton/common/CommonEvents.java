@@ -16,9 +16,9 @@ import net.minecraftforge.event.world.StructureSpawnListGatherEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import teamdraco.bellybutton.BellyButton;
-import teamdraco.bellybutton.init.BellyButtonEnchantments;
-import teamdraco.bellybutton.init.BellyButtonEntities;
-import teamdraco.bellybutton.init.BellyButtonItems;
+import teamdraco.bellybutton.init.BBEnchantments;
+import teamdraco.bellybutton.init.BBEntities;
+import teamdraco.bellybutton.init.BBItems;
 
 import java.util.List;
 
@@ -28,11 +28,11 @@ public class CommonEvents {
     @SubscribeEvent
     public static void dustBunnyAndMaidSpawn(StructureSpawnListGatherEvent event) {
         if (event.getStructure() == StructureFeature.WOODLAND_MANSION) {
-            event.addEntitySpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(BellyButtonEntities.DUST_BUNNY.get(), 1, 1, 2));
-            event.addEntitySpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(BellyButtonEntities.MAID.get(), 1, 1, 1));
+            event.addEntitySpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(BBEntities.DUST_BUNNY.get(), 1, 1, 2));
+            event.addEntitySpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(BBEntities.MAID.get(), 1, 1, 1));
         }
         if (event.getStructure() == StructureFeature.MINESHAFT) {
-            event.addEntitySpawn(MobCategory.AMBIENT, new MobSpawnSettings.SpawnerData(BellyButtonEntities.DUST_BUNNY.get(), 1, 1, 1));
+            event.addEntitySpawn(MobCategory.AMBIENT, new MobSpawnSettings.SpawnerData(BBEntities.DUST_BUNNY.get(), 1, 1, 1));
         }
     }
 
@@ -43,9 +43,9 @@ public class CommonEvents {
         if (attacker instanceof LivingEntity) {
             LivingEntity livingEntity = (LivingEntity) attacker;
             ItemStack heldItem = livingEntity.getMainHandItem();
-            if (EnchantmentHelper.getEnchantments(heldItem).containsKey(BellyButtonEnchantments.LINT_ROLLER.get())) {
+            if (EnchantmentHelper.getEnchantments(heldItem).containsKey(BBEnchantments.LINT_ROLLER.get())) {
                 if (livingEntity.getRandom().nextDouble() < 0.035) {
-                    event.getEntityLiving().spawnAtLocation(BellyButtonItems.LINT.get());
+                    event.getEntityLiving().spawnAtLocation(BBItems.LINT.get());
                 }
             }
         }
@@ -55,6 +55,6 @@ public class CommonEvents {
     public static void addWandererTrades(WandererTradesEvent event) {
         List<VillagerTrades.ItemListing> list = event.getGenericTrades();
 
-        list.add(new BasicItemListing(new ItemStack(Items.EMERALD, 3), new ItemStack(BellyButtonItems.VACUUM.get(), 1), 3, 5, 1.5f));
+        list.add(new BasicItemListing(new ItemStack(Items.EMERALD, 3), new ItemStack(BBItems.VACUUM.get(), 1), 3, 5, 1.5f));
     }
 }
