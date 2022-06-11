@@ -1,0 +1,20 @@
+{
+  "temperature": 0.8,
+  "downfall": 0,
+  "precipitation": "none",
+  "category": "none",
+  "creature_spawn_probability": 0,
+  "forge:registry_name": "bellybutton:the_navel",
+  "effects": {
+    "sky_color": 16759188,
+    "fog_color": 16775106,
+    "water_color": 4159204,
+    "water_fog_color": 329011,
+    "grass_color": 1013269,
+    "foliage_color": 1067023
+  },
+  "spawners": {},
+  "spawn_costs": {},
+  "carvers": {},
+  "features": []
+}

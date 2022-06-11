@@ -1,0 +1,12 @@
+{
+  "type": "bellybutton:the_navel",
+  "generator": {
+    "type": "minecraft:noise",
+    "seed": -2145102030,
+    "settings": "bellybutton:the_navel",
+    "biome_source": {
+      "type": "minecraft:fixed",
+      "biome": "bellybutton:the_navel"
+    }
+  }
+}
