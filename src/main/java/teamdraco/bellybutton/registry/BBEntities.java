@@ -1,4 +1,4 @@
-package teamdraco.bellybutton.init;
+package teamdraco.bellybutton.registry;
 
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;

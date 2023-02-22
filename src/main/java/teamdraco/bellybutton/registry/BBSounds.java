@@ -1,4 +1,4 @@
-package teamdraco.bellybutton.init;
+package teamdraco.bellybutton.registry;
 
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;

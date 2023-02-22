@@ -1,4 +1,4 @@
-package teamdraco.bellybutton.init;
+package teamdraco.bellybutton.registry;
 
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.*;

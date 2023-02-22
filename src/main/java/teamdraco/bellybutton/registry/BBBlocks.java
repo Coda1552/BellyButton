@@ -1,4 +1,4 @@
-package teamdraco.bellybutton.init;
+package teamdraco.bellybutton.registry;
 
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SoundType;

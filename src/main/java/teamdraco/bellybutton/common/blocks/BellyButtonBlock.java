@@ -1,7 +1,6 @@
 package teamdraco.bellybutton.common.blocks;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
@@ -19,13 +18,11 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.ButtonBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.properties.AttachFace;
-import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.dimension.DimensionType;
 import net.minecraft.world.phys.BlockHitResult;
 import teamdraco.bellybutton.common.dimension.NavelTeleporter;
-import teamdraco.bellybutton.init.BBBlocks;
-import teamdraco.bellybutton.init.BBDimension;
-import teamdraco.bellybutton.init.BBItems;
+import teamdraco.bellybutton.registry.BBDimension;
+import teamdraco.bellybutton.registry.BBItems;
 
 public class BellyButtonBlock extends ButtonBlock {
 
@@ -58,9 +55,12 @@ public class BellyButtonBlock extends ButtonBlock {
     public void entityInside(BlockState state, Level level, BlockPos pos, Entity entity) {
         super.entityInside(state, level, pos, entity);
 
-        if (!level.isClientSide() && entity instanceof ThrownEnderpearl pearl && pearl.getOwner() instanceof Player thrower) {
-            ResourceKey<Level> resourcekey = BBDimension.THE_NAVEL;
-            ServerLevel serverlevel = ((ServerLevel) level).getServer().getLevel(resourcekey);
+        ResourceKey<Level> key = Level.OVERWORLD;
+
+        if (level.dimension().equals(key) && !level.isClientSide() && entity instanceof ThrownEnderpearl pearl && pearl.getOwner() instanceof Player thrower) {
+
+            ResourceKey<Level> resourceKey = BBDimension.THE_NAVEL;
+            ServerLevel serverlevel = ((ServerLevel) level).getServer().getLevel(resourceKey);
             if (serverlevel == null) {
                 return;
             }

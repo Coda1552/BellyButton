@@ -15,8 +15,8 @@ import teamdraco.bellybutton.client.model.DustBunnyModel;
 import teamdraco.bellybutton.client.render.DustBunnyRenderer;
 import teamdraco.bellybutton.client.render.EvilDustBunnyRenderer;
 import teamdraco.bellybutton.client.render.MaidRenderer;
-import teamdraco.bellybutton.init.BBBlocks;
-import teamdraco.bellybutton.init.BBEntities;
+import teamdraco.bellybutton.registry.BBBlocks;
+import teamdraco.bellybutton.registry.BBEntities;
 
 @OnlyIn(Dist.CLIENT)
 @Mod.EventBusSubscriber(modid = BellyButton.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)

@@ -31,9 +31,9 @@ import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.phys.HitResult;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import teamdraco.bellybutton.init.BBEntities;
-import teamdraco.bellybutton.init.BBItems;
-import teamdraco.bellybutton.init.BBSounds;
+import teamdraco.bellybutton.registry.BBEntities;
+import teamdraco.bellybutton.registry.BBItems;
+import teamdraco.bellybutton.registry.BBSounds;
 
 import javax.annotation.Nullable;
 import java.util.EnumSet;

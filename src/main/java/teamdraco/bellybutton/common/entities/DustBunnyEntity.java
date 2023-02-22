@@ -32,8 +32,8 @@ import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import teamdraco.bellybutton.init.BBItems;
-import teamdraco.bellybutton.init.BBSounds;
+import teamdraco.bellybutton.registry.BBItems;
+import teamdraco.bellybutton.registry.BBSounds;
 
 import javax.annotation.Nullable;
 import java.util.Objects;

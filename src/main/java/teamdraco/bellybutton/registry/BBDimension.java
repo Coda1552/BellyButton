@@ -1,4 +1,4 @@
-package teamdraco.bellybutton.init;
+package teamdraco.bellybutton.registry;
 
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceKey;
@@ -9,6 +9,6 @@ import teamdraco.bellybutton.BellyButton;
 
 public class BBDimension {
     public static final ResourceKey<DimensionType> THE_NAVEL_TYPE = ResourceKey.create(Registry.DIMENSION_TYPE_REGISTRY, new ResourceLocation(BellyButton.MOD_ID, "the_navel"));
-    public static final ResourceKey<Level> THE_NAVEL = ResourceKey.create(Registry.DIMENSION_REGISTRY, new ResourceLocation(BellyButton.MOD_ID, "the_navel"));
 
+    public static final ResourceKey<Level> THE_NAVEL = ResourceKey.create(Registry.DIMENSION_REGISTRY, new ResourceLocation(BellyButton.MOD_ID, "the_navel"));
 }

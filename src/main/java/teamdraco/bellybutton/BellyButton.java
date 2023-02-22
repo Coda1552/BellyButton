@@ -13,7 +13,7 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import teamdraco.bellybutton.common.entities.DustBunnyEntity;
 import teamdraco.bellybutton.common.entities.EvilDustBunnyEntity;
 import teamdraco.bellybutton.common.entities.MaidEntity;
-import teamdraco.bellybutton.init.*;
+import teamdraco.bellybutton.registry.*;
 
 @Mod(BellyButton.MOD_ID)
 @Mod.EventBusSubscriber(modid = BellyButton.MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE)

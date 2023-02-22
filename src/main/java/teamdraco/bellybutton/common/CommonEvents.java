@@ -16,9 +16,9 @@ import net.minecraftforge.event.world.StructureSpawnListGatherEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import teamdraco.bellybutton.BellyButton;
-import teamdraco.bellybutton.init.BBEnchantments;
-import teamdraco.bellybutton.init.BBEntities;
-import teamdraco.bellybutton.init.BBItems;
+import teamdraco.bellybutton.registry.BBEnchantments;
+import teamdraco.bellybutton.registry.BBEntities;
+import teamdraco.bellybutton.registry.BBItems;
 
 import java.util.List;
 
