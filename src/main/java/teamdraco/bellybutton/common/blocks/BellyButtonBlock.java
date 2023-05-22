@@ -20,6 +20,8 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.dimension.DimensionType;
 import net.minecraft.world.phys.BlockHitResult;
+import teamdraco.bellybutton.capabilities.PlayerNavelData;
+import teamdraco.bellybutton.capabilities.PlayerNavelProvider;
 import teamdraco.bellybutton.common.dimension.NavelTeleporter;
 import teamdraco.bellybutton.registry.BBDimension;
 import teamdraco.bellybutton.registry.BBItems;
@@ -67,7 +69,9 @@ public class BellyButtonBlock extends ButtonBlock {
             NavelTeleporter tp = new NavelTeleporter(serverlevel);
 
             tp.placeEntity(entity, (ServerLevel) level, serverlevel, entity.getYRot(), a -> {
-                makeHole(serverlevel, pos);
+                if (!thrower.getCapability(PlayerNavelProvider.NAVEL_POS).isPresent()) {
+                    initialTravel(serverlevel, pos, thrower);
+                }
                 return entity;
             });
             thrower.changeDimension(serverlevel);
@@ -75,7 +79,19 @@ public class BellyButtonBlock extends ButtonBlock {
         }
     }
 
-    public static void makeHole(ServerLevel level, BlockPos pos) {
+    // todo - spread cavities out on multiplayer
+    private static void initialTravel(ServerLevel level, BlockPos pos, Player player) {
+        makeHole(level, pos);
+
+        player.getCapability(PlayerNavelProvider.NAVEL_POS).ifPresent(navelData -> {
+            navelData.setPosX(pos.getX());
+            navelData.setPosY(pos.getY());
+            navelData.setPosZ(pos.getZ());
+            player.moveTo(navelData.getPosX(), navelData.getPosY(), navelData.getPosZ());
+        });
+    }
+
+    private static void makeHole(ServerLevel level, BlockPos pos) {
         int i = pos.getX();
         int j = pos.getY() - 1;
         int k = pos.getZ();

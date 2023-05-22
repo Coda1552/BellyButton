@@ -8,8 +8,8 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 
 public class BBSounds {
-    public static final DeferredRegister<SoundEvent> REGISTER = DeferredRegister.create(ForgeRegistries.SOUND_EVENTS, BellyButton.MOD_ID);
+    public static final DeferredRegister<SoundEvent> SOUNDS = DeferredRegister.create(ForgeRegistries.SOUND_EVENTS, BellyButton.MOD_ID);
 
-    public static final RegistryObject<SoundEvent> VACUUM = REGISTER.register("vacuum", () -> new SoundEvent(new ResourceLocation(BellyButton.MOD_ID, "vacuum")));
-    public static final RegistryObject<SoundEvent> BELLY_BOPPIN = REGISTER.register("belly_boppin", () -> new SoundEvent(new ResourceLocation(BellyButton.MOD_ID, "belly_boppin")));
+    public static final RegistryObject<SoundEvent> VACUUM = SOUNDS.register("vacuum", () -> new SoundEvent(new ResourceLocation(BellyButton.MOD_ID, "vacuum")));
+    public static final RegistryObject<SoundEvent> BELLY_BOPPIN = SOUNDS.register("belly_boppin", () -> new SoundEvent(new ResourceLocation(BellyButton.MOD_ID, "belly_boppin")));
 }

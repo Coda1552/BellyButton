@@ -1,15 +1,24 @@
 package teamdraco.bellybutton;
 
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.SpawnPlacements;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.raid.Raid;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.levelgen.Heightmap;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.capabilities.RegisterCapabilitiesEvent;
+import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
+import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import teamdraco.bellybutton.capabilities.PlayerNavelData;
+import teamdraco.bellybutton.capabilities.PlayerNavelProvider;
 import teamdraco.bellybutton.common.entities.DustBunnyEntity;
 import teamdraco.bellybutton.common.entities.EvilDustBunnyEntity;
 import teamdraco.bellybutton.common.entities.MaidEntity;
@@ -22,17 +31,23 @@ public class BellyButton {
 
     public BellyButton() {
         IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
+        IEventBus forgeBus = MinecraftForge.EVENT_BUS;
 
         bus.addListener(this::registerCommon);
         bus.addListener(this::registerEntityAttributes);
+        bus.addListener(this::registerCapabilities);
 
-        BBEnchantments.REGISTER.register(bus);
-        BBSounds.REGISTER.register(bus);
+        forgeBus.addGenericListener(Entity.class, this::attachCapabilitiesPlayer);
+        forgeBus.addListener(this::onPlayerCloned);
+
+        BBEnchantments.ENCHANTMENTS.register(bus);
+        BBSounds.SOUNDS.register(bus);
         BBEffects.POTIONS.register(bus);
         BBEffects.EFFECTS.register(bus);
-        BBItems.REGISTER.register(bus);
-        BBBlocks.REGISTER.register(bus);
-        BBEntities.REGISTER.register(bus);
+        BBItems.ITEMS.register(bus);
+        BBBlocks.BLOCKS.register(bus);
+        BBEntities.ENTITIES.register(bus);
+        BBPoiTypes.POIS.register(bus);
     }
 
     private void registerCommon(FMLCommonSetupEvent event) {
@@ -57,4 +72,27 @@ public class BellyButton {
             return new ItemStack(BBItems.DUST_BUNNY.get());
         }
     };
+
+    private void attachCapabilitiesPlayer(AttachCapabilitiesEvent<Entity> e) {
+        if (e.getObject() instanceof Player) {
+            if (!e.getObject().getCapability(PlayerNavelProvider.NAVEL_POS).isPresent()) {
+                e.addCapability(new ResourceLocation(BellyButton.MOD_ID, "navelpos"), new PlayerNavelProvider());
+            }
+        }
+    }
+
+    private void onPlayerCloned(PlayerEvent.Clone e) {
+        if (e.isWasDeath()) {
+            e.getOriginal().getCapability(PlayerNavelProvider.NAVEL_POS).ifPresent(oldStore -> {
+                e.getPlayer().getCapability(PlayerNavelProvider.NAVEL_POS).ifPresent(newStore -> {
+                    newStore.copyFrom(oldStore);
+                });
+            });
+        }
+    }
+
+    private void registerCapabilities(RegisterCapabilitiesEvent e) {
+        e.register(PlayerNavelData.class);
+    }
+
 }

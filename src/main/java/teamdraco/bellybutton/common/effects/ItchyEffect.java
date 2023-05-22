@@ -14,7 +14,7 @@ public class ItchyEffect extends MobEffect {
     public void applyEffectTick(LivingEntity entity, int amplifier) {
         float f = entity.getArmorCoverPercentage();
 
-        if (entity.getHealth() > 1.0F && entity.getRandom().nextFloat() < 0.5D) {
+        if (entity.getHealth() > 1.0F && entity.getRandom().nextBoolean()) {
             entity.hurt(DamageSource.GENERIC, f * 2.0F);
         }
     }
