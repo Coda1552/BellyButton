@@ -20,6 +20,7 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.dimension.DimensionType;
 import net.minecraft.world.phys.BlockHitResult;
+import org.lwjgl.system.CallbackI;
 import teamdraco.bellybutton.capabilities.PlayerNavelData;
 import teamdraco.bellybutton.capabilities.PlayerNavelProvider;
 import teamdraco.bellybutton.common.dimension.NavelTeleporter;
@@ -53,6 +54,7 @@ public class BellyButtonBlock extends ButtonBlock {
         return super.use(state, worldIn, pos, player, handIn, hit);
     }
 
+    // todo - possibly store the block pos of the belly button entered with, to avoid easy teleportation...depends how exiting is done.
     @Override
     public void entityInside(BlockState state, Level level, BlockPos pos, Entity entity) {
         super.entityInside(state, level, pos, entity);
@@ -68,18 +70,22 @@ public class BellyButtonBlock extends ButtonBlock {
             }
             NavelTeleporter tp = new NavelTeleporter(serverlevel);
 
-            tp.placeEntity(entity, (ServerLevel) level, serverlevel, entity.getYRot(), a -> {
-                if (!thrower.getCapability(PlayerNavelProvider.NAVEL_POS).isPresent()) {
-                    initialTravel(serverlevel, pos, thrower);
-                }
+            tp.placeEntity(entity, (ServerLevel) level, serverlevel, entity.getYRot(), e -> {
+                thrower.getCapability(PlayerNavelProvider.NAVEL_POS).ifPresent(navelData -> {
+                    if (navelData.getPosY() == 0) {
+                        initialTravel(serverlevel, pos, thrower);
+                    }
+                    thrower.moveTo(navelData.getPosX(), navelData.getPosY(), navelData.getPosZ());
+                });
+
                 return entity;
             });
-            thrower.changeDimension(serverlevel);
+
             thrower.changeDimension(serverlevel, tp);
         }
     }
 
-    // todo - spread cavities out on multiplayer
+    // todo - spread navels out on multiplayer
     private static void initialTravel(ServerLevel level, BlockPos pos, Player player) {
         makeHole(level, pos);
 
@@ -87,7 +93,11 @@ public class BellyButtonBlock extends ButtonBlock {
             navelData.setPosX(pos.getX());
             navelData.setPosY(pos.getY());
             navelData.setPosZ(pos.getZ());
-            player.moveTo(navelData.getPosX(), navelData.getPosY(), navelData.getPosZ());
+
+            if (navelData.getPosY() == 0) {
+                navelData.setPosY(player.getRandom().nextInt(5));
+            }
+
         });
     }
 
