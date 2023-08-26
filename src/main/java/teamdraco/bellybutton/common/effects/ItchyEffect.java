@@ -6,6 +6,7 @@ import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.LivingEntity;
 
 public class ItchyEffect extends MobEffect {
+
     public ItchyEffect(MobEffectCategory typeIn, int liquidColorIn) {
         super(typeIn, liquidColorIn);
     }
@@ -15,7 +16,7 @@ public class ItchyEffect extends MobEffect {
         float f = entity.getArmorCoverPercentage();
 
         if (entity.getHealth() > 1.0F) {
-            entity.hurt(DamageSource.GENERIC, f * 5.0F);
+            entity.hurt(DamageSource.GENERIC, f * 4.0F);
         }
     }
 
