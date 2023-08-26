@@ -5,6 +5,7 @@ import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.LivingEntity;
 
+// todo - add an advancement to explain this effect a bit, “Survive having itchy without taking off your armor”
 public class ItchyEffect extends MobEffect {
 
     public ItchyEffect(MobEffectCategory typeIn, int liquidColorIn) {
